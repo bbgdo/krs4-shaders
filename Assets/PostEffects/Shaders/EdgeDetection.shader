@@ -196,6 +196,7 @@
                 } else if (magnitude > _LowThreshold) {
                     threshold_res+=0.167;
                 }
+                threshold_res = saturate(threshold_res);
                 
                 return float4(threshold_res, threshold_res, threshold_res, 1);
             }
