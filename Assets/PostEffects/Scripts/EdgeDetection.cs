@@ -4,6 +4,9 @@ using System.IO;
 namespace PostEffects.Scripts {
     public class EdgeDetection : MonoBehaviour
     {
+        private static readonly int ReduceNoise = Shader.PropertyToID("_ReduceNoise");
+        private static readonly int LowThreshold = Shader.PropertyToID("_LowThreshold");
+        private static readonly int HighThreshold = Shader.PropertyToID("_HighThreshold");
         public string inputPath = "Assets/PostEffects/Test/Input/";
         public string outputPath = "Assets/PostEffects/Test/Output/";
         public string fileName = "nier.png";
@@ -12,7 +15,7 @@ namespace PostEffects.Scripts {
         [Range(0f, 1f)]
         public float lowThreshold = 0.1f;
         [Range(0, 1)]
-        public int reduceNoise = 0;
+        public int reduceNoise;
 
         private Material _edgeDetectionMaterial;
 
@@ -26,9 +29,9 @@ namespace PostEffects.Scripts {
             }
 
             _edgeDetectionMaterial = new Material(edShader);
-            _edgeDetectionMaterial.SetFloat("_HighThreshold", highThreshold);
-            _edgeDetectionMaterial.SetFloat("_LowThreshold", lowThreshold);
-            _edgeDetectionMaterial.SetFloat("_ReduceNoise", reduceNoise);
+            _edgeDetectionMaterial.SetFloat(HighThreshold, highThreshold);
+            _edgeDetectionMaterial.SetFloat(LowThreshold, lowThreshold);
+            _edgeDetectionMaterial.SetFloat(ReduceNoise, reduceNoise);
             ProcessImage();
         }
 
