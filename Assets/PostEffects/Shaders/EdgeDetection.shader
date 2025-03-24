@@ -29,13 +29,6 @@
         
             sampler2D _MainTex;
             float4 _MainTex_TexelSize;
-            sampler2D _NoiseReducedTex;
-            float4 _NoiseReducedTex_TexelSize;
-            sampler2D _SobelGradientTex;
-            float4 _SobelGradientTex_TexelSize;
-            sampler2D _ThresholdGradientTex;
-            sampler2D _DoubleThresholdTex;
-            float4 _DoubleThresholdTex_TexelSize;
             float _HighThreshold;
             float _LowThreshold;
             float _ReduceNoise;
@@ -55,13 +48,10 @@
             CGPROGRAM
             #pragma vertex vert
             #pragma fragment frag
-            #include "Lib/Grayscale.cginc"
             
             float4 frag (Interpolators interp) : SV_Target {
                 if (_ReduceNoise == 0) {
-                    float3 sample = tex2D(_MainTex, interp.uv);
-                    float gray = grayscale(sample.rgb);
-                    return float4(gray, gray, gray, 1);
+                    return LinearRgbToLuminance(tex2D(_MainTex, interp.uv));
                 }
 
                 float2 texel_size = _MainTex_TexelSize.xy;
@@ -79,8 +69,8 @@
                     for (int j = -2; j <= 2; j++) {
                         float2 shifted_uv = interp.uv + float2(i, j) * texel_size;
                         float3 sample = tex2D(_MainTex, shifted_uv).rgb;
-                        float gray = grayscale(sample);
-                        blur += gray * gauss[index];
+                        float luminance = LinearRgbToLuminance(sample);
+                        blur += luminance * gauss[index];
                         index++;
                     }
                 }
@@ -99,7 +89,7 @@
             #pragma fragment frag
             
             float4 frag (Interpolators interp) : SV_Target {
-                float2 texel_size = _NoiseReducedTex_TexelSize.xy;
+                float2 texel_size = _MainTex_TexelSize.xy;
                 float3x3 gx = float3x3(
                     -1, 0, 1,
                     -2, 0, 2,
@@ -114,7 +104,7 @@
                 for (int i = -1; i <= 1; i++) {
                     for (int j = -1; j <= 1; j++) {
                         float2 shifted_uv = interp.uv + float2(i, j) * texel_size;
-                        float sample = tex2D(_NoiseReducedTex, shifted_uv).r;
+                        float sample = tex2D(_MainTex, shifted_uv).r;
                         gradient_x += gx[i + 1][j + 1] * sample;
                         gradient_y += gy[i + 1][j + 1] * sample;
                     }
@@ -135,12 +125,12 @@
             #pragma fragment frag
 
             float4 frag (Interpolators interp) : SV_Target {
-                float2 texel_size = _SobelGradientTex_TexelSize.xy;
-                float magnitude = tex2D(_SobelGradientTex, interp.uv).a;
+                float2 texel_size = _MainTex_TexelSize.xy;
+                float magnitude = tex2D(_MainTex, interp.uv).a;
                 float thresholded_gradient = 0;
                 float2 dirA;
                 float2 dirB;
-                float angle = degrees(tex2D(_SobelGradientTex, interp.uv).r);
+                float angle = degrees(tex2D(_MainTex, interp.uv).r);
 
                 if (angle < 0) angle += 180;
 
@@ -168,8 +158,8 @@
                 float2 shifted_uv_A = interp.uv + dirA * texel_size;
                 float2 shifted_uv_B = interp.uv + dirB * texel_size;
 
-                float fragA = tex2D(_SobelGradientTex, shifted_uv_A).a;
-                float fragB = tex2D(_SobelGradientTex, shifted_uv_B).a;
+                float fragA = tex2D(_MainTex, shifted_uv_A).a;
+                float fragB = tex2D(_MainTex, shifted_uv_B).a;
                         
                 if (magnitude > fragA && magnitude > fragB) {
                     thresholded_gradient += magnitude;
@@ -188,7 +178,7 @@
             #pragma fragment frag
 
             float4 frag (Interpolators interp) : SV_Target {
-                float magnitude = tex2D(_ThresholdGradientTex, interp.uv).a;
+                float magnitude = tex2D(_MainTex, interp.uv).a;
                 float threshold_res = 0;
                 
                 if (magnitude > _HighThreshold) {
@@ -211,8 +201,8 @@
             #pragma fragment frag
 
             float4 frag (Interpolators interp) : SV_Target {
-                float2 texel_size = _DoubleThresholdTex_TexelSize.xy;
-                float magnitude = tex2D(_DoubleThresholdTex, interp.uv).r;
+                float2 texel_size = _MainTex_TexelSize.xy;
+                float magnitude = tex2D(_MainTex, interp.uv).r;
                 if (magnitude == 1) {
                     return float4(magnitude, magnitude, magnitude, 1);
                 }
@@ -224,7 +214,7 @@
                     for (int j = -1; j <= 1; j++) {
                         float2 shifted_uv = interp.uv + float2(i, j) * texel_size;
                         shifted_uv = clamp(shifted_uv, 0.001, 0.999);
-                        float sample = tex2D(_DoubleThresholdTex, shifted_uv).r;
+                        float sample = tex2D(_MainTex, shifted_uv).r;
                         if (sample == 1) {
                             return float4(1, 1, 1, 1);
                         }

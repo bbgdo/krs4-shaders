@@ -896,9 +896,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   inputPath: Assets/PostEffects/Test/Input/
   outputPath: Assets/PostEffects/Test/Output/
-  fileName: nier2.png
-  highThreshold: 0.463
-  lowThreshold: 0.265
+  fileName: nier.png
+  highThreshold: 0.472
+  lowThreshold: 0.214
   reduceNoise: 0
 --- !u!1 &1823688464
 GameObject:

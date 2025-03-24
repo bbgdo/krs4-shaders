@@ -54,13 +54,9 @@ namespace PostEffects.Scripts {
             RenderTexture rt4 = new RenderTexture(texture.width, texture.height, 0);
         
             Graphics.Blit(texture, rt0, _edgeDetectionMaterial, 0);
-            _edgeDetectionMaterial.SetTexture("_NoiseReducedTex", rt0);
             Graphics.Blit(rt0, rt1, _edgeDetectionMaterial, 1);
-            _edgeDetectionMaterial.SetTexture("_SobelGradientTex", rt1);
             Graphics.Blit(rt1, rt2, _edgeDetectionMaterial, 2);
-            _edgeDetectionMaterial.SetTexture("_ThresholdGradientTex", rt2);
             Graphics.Blit(rt2, rt3, _edgeDetectionMaterial, 3);
-            _edgeDetectionMaterial.SetTexture("_DoubleThresholdTex", rt3);
             Graphics.Blit(rt3, rt4, _edgeDetectionMaterial, 4);
 
             Texture2D resultTexture = new Texture2D(texture.width, texture.height, TextureFormat.RGB24, false);
