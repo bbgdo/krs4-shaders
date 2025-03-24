@@ -222,7 +222,8 @@
                 for(int i = -1; i <= 1; i++) {
                     for (int j = -1; j <= 1; j++) {
                         float2 shifted_uv = interp.uv + float2(i, j) * texel_size;
-                        float sample = tex2Dlod(_DoubleThresholdTex, float4(shifted_uv, 0, 0)).r;
+                        shifted_uv = clamp(shifted_uv, 0.001, 0.999);
+                        float sample = tex2D(_DoubleThresholdTex, shifted_uv).r;
                         if (sample == 1) {
                             return float4(1, 1, 1, 1);
                         }
