@@ -1,11 +1,8 @@
-﻿Shader "Custom/EdgeDetectionShader"
-{
-    Properties
-    {
+﻿Shader "Custom/EdgeDetectionShader" {
+    Properties {
         _MainTex ("Texture", 2D) = "white" {}
     }
-    SubShader
-    {
+    SubShader {
         Cull Off
         ZWrite Off
         ZTest Always
@@ -14,28 +11,18 @@
             "RenderType"="Opaque"
         }
         
-        Pass
-        {
-            Name "Sobel operator"
-            
-            CGPROGRAM
-            #pragma vertex vert
-            #pragma fragment frag
+        CGINCLUDE
             #include "UnityCG.cginc"
-
-            struct MeshData
-            {
+            struct MeshData {
                 float4 vertex : POSITION;
                 float2 uv : TEXCOORD0;
-                
             };
-
-            struct Interpolators
-            {
+        
+            struct Interpolators {
                 float2 uv : TEXCOORD0;
                 float4 vertex : SV_POSITION;
             };
-
+        
             sampler2D _MainTex;
             float4 _MainTex_TexelSize;
             
@@ -45,7 +32,17 @@
                 o.uv = v.uv;
                 return o;
             }
+        ENDCG
 
+        
+        Pass {
+            Name "Sobel operator"
+            
+            CGPROGRAM
+            #pragma vertex vert
+            #pragma fragment frag
+            #include "Lib/Grayscale.cginc"
+            
             float4 frag (Interpolators interp) : SV_Target {
                 float2 texel_size = _MainTex_TexelSize.xy;
                 float3x3 gx = float3x3(
@@ -63,17 +60,90 @@
                     for (int j = -1; j <= 1; j++) {
                         float2 shifted_uv = interp.uv + float2(i, j) * texel_size;
                         float3 sample = tex2D(_MainTex, shifted_uv);
-                        float gray = dot(sample.rgb, float3(0.3, 0.59, 0.11));
+                        float gray = grayscale(sample.rgb);
                         gradient_x += gx[i + 1][j + 1] * gray;
                         gradient_y += gy[i + 1][j + 1] * gray;
                     }
                 }
                 float gradient_magnitude = sqrt(gradient_x * gradient_x + gradient_y * gradient_y);
-
-                return float4(gradient_magnitude, gradient_magnitude, gradient_magnitude, 1.0);
+                float direction = atan2(gradient_y, gradient_x);
+                
+                return float4(direction, 0, 0, gradient_magnitude);
             }
             ENDCG
         }
+        
+        Pass {
+            Name "Gradient magnitude thresholding"
+            
+            CGPROGRAM
+            #pragma vertex vert
+            #pragma fragment frag
+            sampler2D _SobelGradientTex;
+
+            float4 frag (Interpolators interp) : SV_Target {
+                float2 texel_size = _MainTex_TexelSize.xy;
+                float magnitude = tex2D(_SobelGradientTex, interp.uv).a;
+                float tresholded_gradient = 0;
+                float2 dirA;
+                float2 dirB;
+                float angle = degrees(tex2D(_SobelGradientTex, interp.uv).r);
+
+                if (angle < 0) angle += 180;
+
+                /* east and west - */
+                if ((angle >= 0 && angle < 22.5) || (angle >= 157.5 && angle <= 180)) {
+                    dirA = float2(-1, 0);
+                    dirB = float2(1, 0);
+                }
+                /* north-east and south-west / */
+                else if (angle >= 22.5 && angle < 67.5) {
+                    dirA = float2(-1, -1);
+                    dirB = float2(1, 1);
+                }
+                /* north and south | */
+                else if (angle >= 67.5 && angle < 112.5) {
+                    dirA = float2(0, -1);
+                    dirB = float2(0, 1);
+                }
+                /* north-west and south-east \ */ 
+                else if (angle >= 112.5 && angle < 157.5) {
+                    dirA = float2(-1, 1);
+                    dirB = float2(1, -1);
+                }
+
+                float2 shifted_uv_A = interp.uv + dirA * texel_size;
+                float2 shifted_uv_B = interp.uv + dirB * texel_size;
+
+                float fragA = tex2D(_SobelGradientTex, shifted_uv_A).a;
+                float fragB = tex2D(_SobelGradientTex, shifted_uv_B).a;
+                        
+                if (magnitude > fragA && magnitude > fragB) {
+                    tresholded_gradient += magnitude;
+                }
+
+                return float4(tresholded_gradient, tresholded_gradient, tresholded_gradient, 1);
+            }
+            ENDCG
+        }
+
+        Pass {
+            Name "Double threshold"
+            
+            CGPROGRAM
+            #pragma vertex vert
+            #pragma fragment frag
+            sampler2D _TresholdGradientTex;
+
+            float4 frag (Interpolators interp) : SV_Target {
+                float2 texel_size = _MainTex_TexelSize.xy;
+                float tresholdGrad = tex2D(_TresholdGradientTex, interp.uv);
+
+                return tresholdGrad;
+            }
+            ENDCG
+        }
+        
     }
     FallBack "Diffuse"
 }

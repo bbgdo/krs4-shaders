@@ -13,6 +13,8 @@
             #pragma vertex vert
             #pragma fragment frag
             #include "UnityCG.cginc"
+            #include "Lib/Grayscale.cginc"
+
 
             struct MeshData
             {
@@ -36,10 +38,10 @@
                 return o;
             }
 
-            fixed4 frag (Interpolators i) : SV_Target
+            fixed4 frag (Interpolators interp) : SV_Target
             {
-                fixed4 col = tex2D(_MainTex, i.uv);
-                float gray = dot(col.rgb, float3(0.3, 0.59, 0.11));
+                fixed4 col = tex2D(_MainTex, interp.uv);
+                float gray = grayscale(col.rgb);
                 return fixed4(gray, gray, gray, col.a);
             }
             ENDCG
