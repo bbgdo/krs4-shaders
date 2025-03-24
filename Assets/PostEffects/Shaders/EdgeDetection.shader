@@ -1,6 +1,10 @@
 ﻿Shader "Custom/EdgeDetectionShader" {
+    // Canny edge detection
     Properties {
         _MainTex ("Texture", 2D) = "white" {}
+        _HighThreshold("High Threshold", Range(0, 1)) = 0.4
+        _LowThreshold("Low Threshold", Range(0, 1)) = 0.1
+        _ReduceNoise("Reduce Noise", Range(0, 1)) = 0
     }
     SubShader {
         Cull Off
@@ -25,6 +29,16 @@
         
             sampler2D _MainTex;
             float4 _MainTex_TexelSize;
+            sampler2D _NoiseReducedTex;
+            float4 _NoiseReducedTex_TexelSize;
+            sampler2D _SobelGradientTex;
+            float4 _SobelGradientTex_TexelSize;
+            sampler2D _ThresholdGradientTex;
+            sampler2D _DoubleThresholdTex;
+            float4 _DoubleThresholdTex_TexelSize;
+            float _HighThreshold;
+            float _LowThreshold;
+            float _ReduceNoise;
             
             Interpolators vert (MeshData v) {
                 Interpolators o;
@@ -33,10 +47,10 @@
                 return o;
             }
         ENDCG
-
         
+
         Pass {
-            Name "Sobel operator"
+            Name "Gaussian filter"
             
             CGPROGRAM
             #pragma vertex vert
@@ -44,7 +58,48 @@
             #include "Lib/Grayscale.cginc"
             
             float4 frag (Interpolators interp) : SV_Target {
+                if (_ReduceNoise == 0) {
+                    float3 sample = tex2D(_MainTex, interp.uv);
+                    float gray = grayscale(sample.rgb);
+                    return float4(gray, gray, gray, 1);
+                }
+
                 float2 texel_size = _MainTex_TexelSize.xy;
+                int index = 0;
+                float blur = 0;
+                float gauss[25] = {
+                    2, 4, 5, 4, 2,
+                    4, 9, 12, 9, 4,
+                    5, 12, 15, 12, 5,
+                    4, 9, 12, 9, 4,
+                    2, 4, 5, 4, 2
+                };
+            
+                for (int i = -2; i <= 2; i++) {
+                    for (int j = -2; j <= 2; j++) {
+                        float2 shifted_uv = interp.uv + float2(i, j) * texel_size;
+                        float3 sample = tex2D(_MainTex, shifted_uv).rgb;
+                        float gray = grayscale(sample);
+                        blur += gray * gauss[index];
+                        index++;
+                    }
+                }
+
+                float result = blur / 159.0;
+                return float4(result, result, result, 1);
+            }
+            ENDCG
+        }
+        
+        Pass {
+            Name "Sobel operator"
+            
+            CGPROGRAM
+            #pragma vertex vert
+            #pragma fragment frag
+            
+            float4 frag (Interpolators interp) : SV_Target {
+                float2 texel_size = _NoiseReducedTex_TexelSize.xy;
                 float3x3 gx = float3x3(
                     -1, 0, 1,
                     -2, 0, 2,
@@ -59,10 +114,9 @@
                 for (int i = -1; i <= 1; i++) {
                     for (int j = -1; j <= 1; j++) {
                         float2 shifted_uv = interp.uv + float2(i, j) * texel_size;
-                        float3 sample = tex2D(_MainTex, shifted_uv);
-                        float gray = grayscale(sample.rgb);
-                        gradient_x += gx[i + 1][j + 1] * gray;
-                        gradient_y += gy[i + 1][j + 1] * gray;
+                        float sample = tex2D(_NoiseReducedTex, shifted_uv).r;
+                        gradient_x += gx[i + 1][j + 1] * sample;
+                        gradient_y += gy[i + 1][j + 1] * sample;
                     }
                 }
                 float gradient_magnitude = sqrt(gradient_x * gradient_x + gradient_y * gradient_y);
@@ -79,12 +133,11 @@
             CGPROGRAM
             #pragma vertex vert
             #pragma fragment frag
-            sampler2D _SobelGradientTex;
 
             float4 frag (Interpolators interp) : SV_Target {
-                float2 texel_size = _MainTex_TexelSize.xy;
+                float2 texel_size = _SobelGradientTex_TexelSize.xy;
                 float magnitude = tex2D(_SobelGradientTex, interp.uv).a;
-                float tresholded_gradient = 0;
+                float thresholded_gradient = 0;
                 float2 dirA;
                 float2 dirB;
                 float angle = degrees(tex2D(_SobelGradientTex, interp.uv).r);
@@ -119,10 +172,10 @@
                 float fragB = tex2D(_SobelGradientTex, shifted_uv_B).a;
                         
                 if (magnitude > fragA && magnitude > fragB) {
-                    tresholded_gradient += magnitude;
+                    thresholded_gradient += magnitude;
                 }
 
-                return float4(tresholded_gradient, tresholded_gradient, tresholded_gradient, 1);
+                return float4(angle, 0, 0, thresholded_gradient);
             }
             ENDCG
         }
@@ -133,17 +186,53 @@
             CGPROGRAM
             #pragma vertex vert
             #pragma fragment frag
-            sampler2D _TresholdGradientTex;
 
             float4 frag (Interpolators interp) : SV_Target {
-                float2 texel_size = _MainTex_TexelSize.xy;
-                float tresholdGrad = tex2D(_TresholdGradientTex, interp.uv);
-
-                return tresholdGrad;
+                float magnitude = tex2D(_ThresholdGradientTex, interp.uv).a;
+                float threshold_res = 0;
+                
+                if (magnitude > _HighThreshold) {
+                    threshold_res+=1;
+                } else if (magnitude > _LowThreshold) {
+                    threshold_res+=0.167;
+                }
+                
+                return float4(threshold_res, threshold_res, threshold_res, 1);
             }
             ENDCG
         }
         
+        Pass {
+            Name "Hysteresis"
+            
+            CGPROGRAM
+            #pragma vertex vert
+            #pragma fragment frag
+
+            float4 frag (Interpolators interp) : SV_Target {
+                float2 texel_size = _DoubleThresholdTex_TexelSize.xy;
+                float magnitude = tex2D(_DoubleThresholdTex, interp.uv).r;
+                if (magnitude == 1) {
+                    return float4(magnitude, magnitude, magnitude, 1);
+                }
+                if (magnitude == 0) {
+                    return float4(0, 0, 0, 1);
+                }
+                
+                for(int i = -1; i <= 1; i++) {
+                    for (int j = -1; j <= 1; j++) {
+                        float2 shifted_uv = interp.uv + float2(i, j) * texel_size;
+                        float sample = tex2Dlod(_DoubleThresholdTex, float4(shifted_uv, 0, 0)).r;
+                        if (sample == 1) {
+                            return float4(1, 1, 1, 1);
+                        }
+                    }
+                }
+                
+                return float4(0, 0, 0, 1);
+            }
+            ENDCG
+        }
     }
     FallBack "Diffuse"
 }
