@@ -51,7 +51,9 @@
             
             float4 frag (Interpolators interp) : SV_Target {
                 if (_ReduceNoise == 0) {
-                    return LinearRgbToLuminance(tex2D(_MainTex, interp.uv));
+                    float luminance =  LinearRgbToLuminance(tex2D(_MainTex, interp.uv));
+                    
+                    return luminance;
                 }
 
                 float2 texel_size = _MainTex_TexelSize.xy;
@@ -74,9 +76,9 @@
                         index++;
                     }
                 }
-
                 float result = blur / 159.0;
-                return float4(result, result, result, 1);
+
+                return result;
             }
             ENDCG
         }
@@ -104,7 +106,7 @@
                 for (int i = -1; i <= 1; i++) {
                     for (int j = -1; j <= 1; j++) {
                         float2 shifted_uv = interp.uv + float2(i, j) * texel_size;
-                        float sample = tex2D(_MainTex, shifted_uv).r;
+                        float sample = tex2D(_MainTex, shifted_uv).a;
                         gradient_x += gx[i + 1][j + 1] * sample;
                         gradient_y += gy[i + 1][j + 1] * sample;
                     }
@@ -188,7 +190,7 @@
                 }
                 threshold_res = saturate(threshold_res);
                 
-                return float4(threshold_res, threshold_res, threshold_res, 1);
+                return threshold_res;
             }
             ENDCG
         }
@@ -202,26 +204,26 @@
 
             float4 frag (Interpolators interp) : SV_Target {
                 float2 texel_size = _MainTex_TexelSize.xy;
-                float magnitude = tex2D(_MainTex, interp.uv).r;
+                float magnitude = tex2D(_MainTex, interp.uv).a;
                 if (magnitude == 1) {
-                    return float4(magnitude, magnitude, magnitude, 1);
+                    return magnitude;
                 }
                 if (magnitude == 0) {
-                    return float4(0, 0, 0, 1);
+                    return 0;
                 }
                 
                 for(int i = -1; i <= 1; i++) {
                     for (int j = -1; j <= 1; j++) {
                         float2 shifted_uv = interp.uv + float2(i, j) * texel_size;
                         shifted_uv = clamp(shifted_uv, 0.001, 0.999);
-                        float sample = tex2D(_MainTex, shifted_uv).r;
+                        float sample = tex2D(_MainTex, shifted_uv).a;
                         if (sample == 1) {
-                            return float4(1, 1, 1, 1);
+                            return 1.0;
                         }
                     }
                 }
                 
-                return float4(0, 0, 0, 1);
+                return 0.0;
             }
             ENDCG
         }

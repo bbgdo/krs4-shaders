@@ -19,8 +19,7 @@ namespace PostEffects.Scripts {
 
         private Material _edgeDetectionMaterial;
 
-        void Start()
-        {
+        void Start() {
             Shader edShader = Shader.Find("Custom/EdgeDetectionShader");
             if (edShader == null)
             {
@@ -35,8 +34,7 @@ namespace PostEffects.Scripts {
             ProcessImage();
         }
 
-        void ProcessImage()
-        {
+        private void ProcessImage() {
             string inputFile = Path.Combine(inputPath, fileName);
             string outputFile = Path.Combine(outputPath, "ed_" + fileName);
 

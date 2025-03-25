@@ -10,8 +10,7 @@ namespace PostEffects.Scripts {
 
         private Material bwMaterial;
 
-        void Start()
-        {
+        void Start() {
             Shader bwShader = Shader.Find("Custom/BWShader");
             if (bwShader == null)
             {
@@ -23,8 +22,7 @@ namespace PostEffects.Scripts {
             ProcessImage();
         }
 
-        void ProcessImage()
-        {
+        private void ProcessImage() {
             string inputFile = Path.Combine(inputPath, fileName);
             string outputFile = Path.Combine(outputPath, "bw_" + fileName);
 
