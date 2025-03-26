@@ -71,11 +71,7 @@ namespace PostEffects.Scripts {
             texture.LoadImage(fileData);
             
             Texture2D blueNoiseTexture = Resources.Load<Texture2D>("LDR_RGBA_0");
-            if (blueNoiseTexture == null) {
-                Debug.LogError("Failed to load BlueNoise from Resources!");
-            } else {
-                _inkMaterial.SetTexture(NoiseTexture, blueNoiseTexture);
-            }
+            _inkMaterial.SetTexture(NoiseTexture, blueNoiseTexture);
 
             RenderTexture rtLuminanceGauss = new RenderTexture(texture.width, texture.height, 0);
             RenderTexture rtSobel = new RenderTexture(texture.width, texture.height, 0);
