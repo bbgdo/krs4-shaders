@@ -21,16 +21,16 @@ namespace PostEffects.Scripts {
 
         void Start() {
             Shader edShader = Shader.Find("Custom/EdgeDetectionShader");
-            if (edShader == null)
-            {
+            if (edShader == null) {
                 Debug.LogError("EdgeDetection.shader not found");
                 return;
             }
 
             _edgeDetectionMaterial = new Material(edShader);
+            
             _edgeDetectionMaterial.SetFloat(HighThreshold, highThreshold);
             _edgeDetectionMaterial.SetFloat(LowThreshold, lowThreshold);
-            _edgeDetectionMaterial.SetFloat(ReduceNoise, reduceNoise);
+            _edgeDetectionMaterial.SetInt(ReduceNoise, reduceNoise);
             ProcessImage();
         }
 
@@ -48,20 +48,20 @@ namespace PostEffects.Scripts {
             Texture2D texture = new Texture2D(2, 2);
             texture.LoadImage(fileData);
 
-            RenderTexture rt0 = new RenderTexture(texture.width, texture.height, 0);
-            RenderTexture rt1 = new RenderTexture(texture.width, texture.height, 0);
-            RenderTexture rt2 = new RenderTexture(texture.width, texture.height, 0);
-            RenderTexture rt3 = new RenderTexture(texture.width, texture.height, 0);
-            RenderTexture rt4 = new RenderTexture(texture.width, texture.height, 0);
+            RenderTexture rtLuminanceGauss = new RenderTexture(texture.width, texture.height, 0);
+            RenderTexture rtSobel = new RenderTexture(texture.width, texture.height, 0);
+            RenderTexture rtGradientMagnitude = new RenderTexture(texture.width, texture.height, 0);
+            RenderTexture rtDoubleThreshold = new RenderTexture(texture.width, texture.height, 0);
+            RenderTexture rtHysteresis = new RenderTexture(texture.width, texture.height, 0);
         
-            Graphics.Blit(texture, rt0, _edgeDetectionMaterial, 0);
-            Graphics.Blit(rt0, rt1, _edgeDetectionMaterial, 1);
-            Graphics.Blit(rt1, rt2, _edgeDetectionMaterial, 2);
-            Graphics.Blit(rt2, rt3, _edgeDetectionMaterial, 3);
-            Graphics.Blit(rt3, rt4, _edgeDetectionMaterial, 4);
+            Graphics.Blit(texture, rtLuminanceGauss, _edgeDetectionMaterial, 0);
+            Graphics.Blit(rtLuminanceGauss, rtSobel, _edgeDetectionMaterial, 1);
+            Graphics.Blit(rtSobel, rtGradientMagnitude, _edgeDetectionMaterial, 2);
+            Graphics.Blit(rtGradientMagnitude, rtDoubleThreshold, _edgeDetectionMaterial, 3);
+            Graphics.Blit(rtDoubleThreshold, rtHysteresis, _edgeDetectionMaterial, 4);
 
             Texture2D resultTexture = new Texture2D(texture.width, texture.height, TextureFormat.RGB24, false);
-            RenderTexture.active = rt4;
+            RenderTexture.active = rtHysteresis;
             resultTexture.ReadPixels(new Rect(0, 0, texture.width, texture.height), 0, 0);
             resultTexture.Apply();
 
@@ -71,11 +71,11 @@ namespace PostEffects.Scripts {
             Debug.Log("Saved in: " + outputFile);
         
             RenderTexture.active = null;
-            rt0.Release();
-            rt1.Release();
-            rt2.Release();
-            rt3.Release();
-            rt4.Release();
+            rtLuminanceGauss.Release();
+            rtSobel.Release();
+            rtGradientMagnitude.Release();
+            rtDoubleThreshold.Release();
+            rtHysteresis.Release();
             Destroy(resultTexture);
             Destroy(texture);
         }

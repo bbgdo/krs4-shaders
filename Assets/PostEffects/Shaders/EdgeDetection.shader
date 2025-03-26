@@ -4,7 +4,7 @@
         _MainTex ("Texture", 2D) = "white" {}
         _HighThreshold("High Threshold", Range(0, 1)) = 0.4
         _LowThreshold("Low Threshold", Range(0, 1)) = 0.1
-        _ReduceNoise("Reduce Noise", Range(0, 1)) = 0
+        _ReduceNoise("Reduce Noise", Int) = 0
     }
     SubShader {
         Cull Off
@@ -31,7 +31,7 @@
             float4 _MainTex_TexelSize;
             float _HighThreshold;
             float _LowThreshold;
-            float _ReduceNoise;
+            int _ReduceNoise;
             
             Interpolators vert (MeshData v) {
                 Interpolators o;
@@ -184,9 +184,9 @@
                 float threshold_res = 0;
                 
                 if (magnitude > _HighThreshold) {
-                    threshold_res+=1;
+                    threshold_res += 1;
                 } else if (magnitude > _LowThreshold) {
-                    threshold_res+=0.167; // take a look later
+                    threshold_res += 0.5;
                 }
                 threshold_res = saturate(threshold_res);
                 
