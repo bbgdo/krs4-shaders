@@ -599,6 +599,9 @@ PrefabInstance:
     - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: d6582b262c6a80f4b8dee1158430a24a, type: 3}
       insertIndex: -1
       addedObject: {fileID: 1688187795}
+    - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: d6582b262c6a80f4b8dee1158430a24a, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 1688187797}
   m_SourcePrefab: {fileID: 100100000, guid: d6582b262c6a80f4b8dee1158430a24a, type: 3}
 --- !u!1 &1074857087
 GameObject:
@@ -913,7 +916,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1688187787}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 64b9b4b640f94ddf904dcf6f0ec77323, type: 3}
   m_Name: 
@@ -943,6 +946,25 @@ MonoBehaviour:
   outputPath: Assets/PostEffects/Test/Output/
   fileName: 2b.png
   downScale: 10
+--- !u!114 &1688187797
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1688187787}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ef604cf31e744d1e839498609502e11d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  inputPath: Assets/PostEffects/Test/Input/
+  outputPath: Assets/PostEffects/Test/Output/
+  fileName: 2b.png
+  kernelSize: 5
+  sigma1: 1.7
+  sigma2: 2.45
+  threshold: 0.04
 --- !u!1 &1823688464
 GameObject:
   m_ObjectHideFlags: 0

@@ -1,5 +1,5 @@
-﻿Shader "Custom/EdgeDetectionShader" {
-    // Canny edge detection
+﻿// Canny edge detection
+Shader "Custom/EdgeDetectionShader" {
     Properties {
         _MainTex ("Texture", 2D) = "white" {}
         _HighThreshold("High Threshold", Range(0, 1)) = 0.4
@@ -56,6 +56,7 @@
                     return luminance;
                 }
 
+                // TODO: change to 3x3 blur
                 float2 texel_size = _MainTex_TexelSize.xy;
                 int index = 0;
                 float blur = 0;
