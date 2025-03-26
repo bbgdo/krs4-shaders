@@ -596,6 +596,9 @@ PrefabInstance:
     - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: d6582b262c6a80f4b8dee1158430a24a, type: 3}
       insertIndex: -1
       addedObject: {fileID: 1688187794}
+    - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: d6582b262c6a80f4b8dee1158430a24a, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 1688187795}
   m_SourcePrefab: {fileID: 100100000, guid: d6582b262c6a80f4b8dee1158430a24a, type: 3}
 --- !u!1 &1074857087
 GameObject:
@@ -910,19 +913,36 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1688187787}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 64b9b4b640f94ddf904dcf6f0ec77323, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   inputPath: Assets/PostEffects/Test/Input/
   outputPath: Assets/PostEffects/Test/Output/
-  fileName: nier.png
-  highThreshold: 0.4
+  fileName: 2b.png
+  highThreshold: 0.3
   lowThreshold: 0.1
   reduceNoise: 0
-  noiseScale: 0.705
-  edgeThickness: 2
+  stipplingBias: 0.062
+  noiseScale: 1
+  edgeThickness: 0
+--- !u!114 &1688187795
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1688187787}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b529c24ac5c34af2bc6c4b7140b226d9, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  inputPath: Assets/PostEffects/Test/Input/
+  outputPath: Assets/PostEffects/Test/Output/
+  fileName: 2b.png
+  downScale: 10
 --- !u!1 &1823688464
 GameObject:
   m_ObjectHideFlags: 0

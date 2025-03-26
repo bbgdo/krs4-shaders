@@ -186,7 +186,7 @@
                 if (magnitude > _HighThreshold) {
                     threshold_res+=1;
                 } else if (magnitude > _LowThreshold) {
-                    threshold_res+=0.167;
+                    threshold_res+=0.167; // take a look later
                 }
                 threshold_res = saturate(threshold_res);
                 

@@ -2,9 +2,10 @@
     Properties {
         _MainTex ("Texture", 2D) = "white" {}
         _NoiseTex ("Noise Texture", 2D) = "white" {}
-        _HighThreshold("High Threshold", Range(0, 1)) = 0.4
+        _HighThreshold("High Threshold", Range(0, 1)) = 0.3
         _LowThreshold("Low Threshold", Range(0, 1)) = 0.1
         _ReduceNoise("Reduce Noise", Range(0, 1)) = 0
+        _StipplingBias("Stippling Bias", Range(0, 1)) = 0
         _NoiseScale("Noise Scale", Range(0, 2)) = 1
         _EdgeThickness("Edge Thickness", Range(0, 5)) = 0
     }
@@ -38,6 +39,7 @@
             float _HighThreshold;
             float _LowThreshold;
             float _ReduceNoise;
+            float _StipplingBias;
             float _EdgeThickness;
             
             Interpolators vert (MeshData v) {
@@ -243,7 +245,8 @@
             #pragma fragment frag
 
             float4 frag (Interpolators interp) : SV_Target {
-                float luminance = tex2D(_MainTex, interp.uv).a;
+                // _StipplingBias is temporary, will be moved to a standalone shader.
+                float luminance = saturate(tex2D(_MainTex, interp.uv).a + _StipplingBias);
                 float2 screenUV = interp.vertex.xy / _ScreenParams.xy;
                 float2 noiseUV = screenUV * _NoiseScale;
                 noiseUV = frac(noiseUV);

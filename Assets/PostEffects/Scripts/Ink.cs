@@ -6,6 +6,7 @@ namespace PostEffects.Scripts {
         private static readonly int ReduceNoise = Shader.PropertyToID("_ReduceNoise");
         private static readonly int LowThreshold = Shader.PropertyToID("_LowThreshold");
         private static readonly int HighThreshold = Shader.PropertyToID("_HighThreshold");
+        private static readonly int StipplingBias = Shader.PropertyToID("_StipplingBias");
         private static readonly int NoiseTexture = Shader.PropertyToID("_NoiseTex");
         private static readonly int NoiseScale = Shader.PropertyToID("_NoiseScale");
         private static readonly int StippleTex = Shader.PropertyToID("_StippleTex");
@@ -15,15 +16,17 @@ namespace PostEffects.Scripts {
         public string outputPath = "Assets/PostEffects/Test/Output/";
         public string fileName = "nier.png";
         [Range(0f, 1f)]
-        public float highThreshold = 0.4f;
+        public float highThreshold = 0.3f;
         [Range(0f, 1f)]
         public float lowThreshold = 0.1f;
         [Range(0, 1)]
         public int reduceNoise;
+        [Range(0, 1)] 
+        public float stipplingBias = 0.0f;
         [Range(0f, 2f)]
         public float noiseScale = 1.0f;
         [Range(0, 5)]
-        public int edgeThickness = 0;
+        public int edgeThickness;
 
         private Material _inkMaterial;
 
@@ -38,6 +41,7 @@ namespace PostEffects.Scripts {
             _inkMaterial.SetFloat(HighThreshold, highThreshold);
             _inkMaterial.SetFloat(LowThreshold, lowThreshold);
             _inkMaterial.SetFloat(ReduceNoise, reduceNoise);
+            _inkMaterial.SetFloat(StipplingBias, stipplingBias);
             _inkMaterial.SetFloat(NoiseScale, noiseScale);
             _inkMaterial.SetFloat(EdgeThickness, edgeThickness);
             
