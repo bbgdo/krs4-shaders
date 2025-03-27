@@ -28,7 +28,7 @@
             };
         
             sampler2D _MainTex, _AsciiTex, _DownsampledTex;
-            SamplerState sampler_AsciiTex;
+            float4 _MainTex_TexelSize;
             
             Interpolators vert (MeshData v) {
                 Interpolators o;
@@ -59,23 +59,25 @@
             #pragma vertex vert
             #pragma fragment frag
 
+
             float4 frag (Interpolators interp) : SV_Target {
-                float2 aligned_screen_size = floor(_ScreenParams.xy / 8.0) * 8.0;
-                float2 screen_pos = interp.uv * aligned_screen_size;
-                
-                float2 downsampled_pos = floor(screen_pos / 8.0);
-                float2 downsampled_tex_size = aligned_screen_size / 8.0;
-                float2 downsampled_uv = (downsampled_pos + 0.5) / downsampled_tex_size;
+                float2 screen_pos = float2(
+                    interp.uv.x * _MainTex_TexelSize.z,
+                    interp.uv.y * _MainTex_TexelSize.w);
+
+                float2 tile_pos = floor(screen_pos  / 8.0);
+                float2 tile_uv = fmod(screen_pos , 8.0) / 8.0;
+
+                float2 downsampled_size = float2(
+                    _MainTex_TexelSize.z,
+                    _MainTex_TexelSize.w) / 8.0;
+                float2 downsampled_uv = (tile_pos + 0.5) / downsampled_size;
                 
                 float4 block_color = tex2D(_DownsampledTex, downsampled_uv);
-                float luminance = floor(LinearRgbToLuminance(block_color) * 9.0);
-                
-                float2 local_uv = fmod(screen_pos, 8.0) / 8.0;
-                float2 char_uv = float2(
-                (luminance + local_uv.x) / 10.0,
-                local_uv.y
-                );
-                float ascii_color = tex2D(_AsciiTex, char_uv);
+                float luminance = floor(LinearRgbToLuminance(block_color) * 10.0);
+
+                float2 ascii_uv = float2((luminance + tile_uv.x) / 10.0, tile_uv.y);
+                float ascii_color = tex2D(_AsciiTex, ascii_uv);
                 
                 return ascii_color;
             }

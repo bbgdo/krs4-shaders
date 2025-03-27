@@ -42,7 +42,6 @@ namespace PostEffects.Scripts {
             
             Texture2D asciiLod = Resources.Load<Texture2D>("1x0 8x8 3");
             _asciiMaterial.SetTexture(AsciiTex, asciiLod);
-            Debug.Log($"ASCII Texture Size: {asciiLod.width}x{asciiLod.height}");
             
             _dogMaterial.SetInt(GaussianKernelSize, kernelSize);
             _dogMaterial.SetFloat(Sigma1, sigma1);
@@ -66,15 +65,41 @@ namespace PostEffects.Scripts {
             texture.LoadImage(fileData);
 
             RenderTexture rtD1 = new RenderTexture(texture.width / 2, texture.height / 2, 0) {
-                filterMode = FilterMode.Point
+                filterMode = FilterMode.Point,
+                enableRandomWrite = false,
+                useMipMap = false,
+                autoGenerateMips = false,
+                antiAliasing = 1,
+                wrapMode = TextureWrapMode.Clamp
             };
+            rtD1.Create();
             RenderTexture rtD2 = new RenderTexture(texture.width / 4, texture.height / 4, 0) {
-                filterMode = FilterMode.Point
+                filterMode = FilterMode.Point,
+                enableRandomWrite = false,
+                useMipMap = false,
+                autoGenerateMips = false,
+                antiAliasing = 1,
+                wrapMode = TextureWrapMode.Clamp
             };
+            rtD2.Create();
             RenderTexture rtD3 = new RenderTexture(texture.width / 8, texture.height / 8, 0) {
-                filterMode = FilterMode.Point
+                filterMode = FilterMode.Point,
+                enableRandomWrite = false,
+                useMipMap = false,
+                autoGenerateMips = false,
+                antiAliasing = 1,
+                wrapMode = TextureWrapMode.Clamp
             };
-            RenderTexture rt1 = new RenderTexture(texture.width, texture.height, 0);
+            rtD3.Create();
+            RenderTexture rt1 = new RenderTexture(texture.width, texture.height, 0) {
+                filterMode = FilterMode.Point,
+                enableRandomWrite = false,
+                useMipMap = false,
+                autoGenerateMips = false,
+                antiAliasing = 1,
+                wrapMode = TextureWrapMode.Clamp
+            };
+            rt1.Create();
             RenderTexture rtHorizontalBlur = new RenderTexture(texture.width, texture.height, 0);
             RenderTexture rtVerticalBlur = new RenderTexture(texture.width, texture.height, 0);
             RenderTexture rtDoG = new RenderTexture(texture.width, texture.height, 0);
