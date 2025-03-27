@@ -598,13 +598,13 @@ PrefabInstance:
       addedObject: {fileID: 1688187794}
     - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: d6582b262c6a80f4b8dee1158430a24a, type: 3}
       insertIndex: -1
-      addedObject: {fileID: 1688187795}
-    - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: d6582b262c6a80f4b8dee1158430a24a, type: 3}
-      insertIndex: -1
       addedObject: {fileID: 1688187797}
     - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: d6582b262c6a80f4b8dee1158430a24a, type: 3}
       insertIndex: -1
       addedObject: {fileID: 1688187799}
+    - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: d6582b262c6a80f4b8dee1158430a24a, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 1688187802}
   m_SourcePrefab: {fileID: 100100000, guid: d6582b262c6a80f4b8dee1158430a24a, type: 3}
 --- !u!1 &1074857087
 GameObject:
@@ -933,22 +933,6 @@ MonoBehaviour:
   stipplingBias: 0.062
   noiseScale: 1
   edgeThickness: 0
---- !u!114 &1688187795
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1688187787}
-  m_Enabled: 0
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: b529c24ac5c34af2bc6c4b7140b226d9, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  inputPath: Assets/PostEffects/Test/Input/
-  outputPath: Assets/PostEffects/Test/Output/
-  fileName: 2b.png
-  downScale: 10
 --- !u!114 &1688187797
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -975,7 +959,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1688187787}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: fa6761f4dcb14350b170d5cf93b4d8f7, type: 3}
   m_Name: 
@@ -987,6 +971,24 @@ MonoBehaviour:
   sigma1: 1.7
   sigma2: 2.45
   threshold: 0.04
+--- !u!114 &1688187802
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1688187787}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a322d091d74446e7b1d534f926c4d217, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  inputPath: Assets/PostEffects/Test/Input/
+  outputPath: Assets/PostEffects/Test/Output/
+  fileName: radiohead.png
+  colors: 32
+  downsamples: 2
+  spread: 0.042
 --- !u!1 &1823688464
 GameObject:
   m_ObjectHideFlags: 0

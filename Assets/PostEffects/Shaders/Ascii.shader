@@ -1,10 +1,6 @@
 ﻿Shader "Custom/AsciiShader" {
     Properties {
         _MainTex ("Texture", 2D) = "white" {}
-        _GaussianKernelSize("Kernel Size", Int) = 5
-        _Sigma("Sigma", Range(0, 5)) = 1
-        _SigmaK("Sigma scale", Range(0, 5)) = 1.5
-        _Threshold("Threshold", Range(0, 1)) = 0
     }
     SubShader {
         Cull Off
