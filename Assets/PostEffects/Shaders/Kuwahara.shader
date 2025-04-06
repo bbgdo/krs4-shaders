@@ -36,31 +36,24 @@
             }
 
             float4 sector_color(int index, float2 uv, int sectorSize) {
-                float2 offset;
+                float2 sector;
                 float3 color_sum = 0;
                 float mean = 0;
                 float diviation = 0;
-                float2 sector = 0;
                 int n = sectorSize * sectorSize;
                 switch (index) {
-                    case 0: offset = float2(-sectorSize, -sectorSize); break;
-                    case 1: offset = float2(sectorSize, -sectorSize); break;
-                    case 2: offset = float2(-sectorSize, sectorSize); break;
-                    case 3: offset = float2(sectorSize, sectorSize); break;
+                    case 0: sector = float2(-1, -1); break;
+                    case 1: sector = float2(1, -1); break;
+                    case 2: sector = float2(-1, 1); break;
+                    case 3: sector = float2(1, 1); break;
                 }
 
                 [loop]
                 for (int i = 0; i < sectorSize; i++) {
-                    [loop]   
                     for (int j = 0; j < sectorSize; j++) {
-                        sector.x = offset.x > 0
-                            ? uv.x + (offset.x - i) * _MainTex_TexelSize.x
-                            : uv.x + (offset.x + i) * _MainTex_TexelSize.x;
-                        sector.y = offset.y > 0
-                            ? uv.y + (offset.y - j) * _MainTex_TexelSize.y
-                            : uv.y + (offset.y + j) * _MainTex_TexelSize.y;
-
-                        float3 sample = tex2D(_MainTex, sector).rgb;
+                        float2 sampleUV = uv + float2(i, j) * sector * _MainTex_TexelSize;
+                        
+                        float3 sample = tex2D(_MainTex, saturate(sampleUV)).rgb;
                         float luminance = LinearRgbToLuminance(sample);
 
                         color_sum += sample;
@@ -86,7 +79,7 @@
             float4 frag (Interpolators interp) : SV_Target {
                 float2 uv = interp.uv;
 
-                float min_div = 1;
+                float min_div = 99999.0;
                 float3 result_color;
 
                 [unroll]
