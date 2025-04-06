@@ -82,15 +82,11 @@
                 float adaptiveRange = lerp(_EdgeThickness, 0, luminance);
                 int range = (int)floor(adaptiveRange);
                 float edge = 0.0;
-            
-                const int MAX_RANGE = 5; 
-            
-                [unroll]
-                for (int i = 0; i <= MAX_RANGE; i++) {
-                    [unroll]
-                    for (int j = 0; j <= MAX_RANGE; j++) {
-                        if (abs(i) > range || abs(j) > range) continue;
-            
+                
+                [loop]
+                for (int i = 0; i <= range; i++) {
+                    [loop]
+                    for (int j = 0; j <= range; j++) {
                         float2 shifted_uv = interp.uv + float2(i, j) * texel_size;
                         shifted_uv = clamp(shifted_uv, 0.001, 0.999);
                         float sample = tex2D(_MainTex, shifted_uv).a;

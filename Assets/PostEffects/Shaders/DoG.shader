@@ -100,7 +100,7 @@ Shader "Custom/DoGShader" {
         }
 
         Pass {
-            Name "vertical blur"
+            Name "Difference of Gaussians"
             
             CGPROGRAM
             #pragma vertex vert
