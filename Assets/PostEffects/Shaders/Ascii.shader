@@ -23,7 +23,9 @@
                 float4 vertex : SV_POSITION;
             };
         
-            sampler2D _MainTex, _AsciiTex, _DownsampledTex;
+            Texture2D _MainTex;
+            SamplerState point_clamp_sampler;
+            sampler2D _AsciiTex, _DownsampledTex;
             float4 _MainTex_TexelSize;
             
             Interpolators vert (MeshData v) {
@@ -43,7 +45,7 @@
             #pragma fragment frag
             
             float4 frag (Interpolators interp) : SV_Target {
-                return tex2D(_MainTex, interp.uv);
+                return _MainTex.Sample(point_clamp_sampler, interp.uv);
             }
             ENDCG
         }

@@ -6,7 +6,6 @@ using System;
 [Serializable, VolumeComponentMenu("Post-processing/Custom/BW_HDRP")]
 public sealed class BW_HDRP : CustomPostProcessVolumeComponent, IPostProcessComponent
 {
-    [Tooltip("Controls the intensity of the effect.")]
     public ClampedFloatParameter intensity = new ClampedFloatParameter(0f, 0f, 1f);
 
     Material m_Material;

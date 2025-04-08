@@ -589,24 +589,6 @@ PrefabInstance:
     m_AddedComponents:
     - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: d6582b262c6a80f4b8dee1158430a24a, type: 3}
       insertIndex: -1
-      addedObject: {fileID: 1688187789}
-    - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: d6582b262c6a80f4b8dee1158430a24a, type: 3}
-      insertIndex: -1
-      addedObject: {fileID: 1688187790}
-    - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: d6582b262c6a80f4b8dee1158430a24a, type: 3}
-      insertIndex: -1
-      addedObject: {fileID: 1688187794}
-    - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: d6582b262c6a80f4b8dee1158430a24a, type: 3}
-      insertIndex: -1
-      addedObject: {fileID: 1688187797}
-    - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: d6582b262c6a80f4b8dee1158430a24a, type: 3}
-      insertIndex: -1
-      addedObject: {fileID: 1688187799}
-    - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: d6582b262c6a80f4b8dee1158430a24a, type: 3}
-      insertIndex: -1
-      addedObject: {fileID: 1688187802}
-    - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: d6582b262c6a80f4b8dee1158430a24a, type: 3}
-      insertIndex: -1
       addedObject: {fileID: 1688187804}
   m_SourcePrefab: {fileID: 100100000, guid: d6582b262c6a80f4b8dee1158430a24a, type: 3}
 --- !u!1 &1074857087
@@ -882,116 +864,6 @@ GameObject:
   m_CorrespondingSourceObject: {fileID: 919132149155446097, guid: d6582b262c6a80f4b8dee1158430a24a, type: 3}
   m_PrefabInstance: {fileID: 160257146}
   m_PrefabAsset: {fileID: 0}
---- !u!114 &1688187789
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1688187787}
-  m_Enabled: 0
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 695f48ccd2654797b265ce19c85dee3e, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  inputPath: Assets/PostEffects/Test/Input/
-  outputPath: Assets/PostEffects/Test/Output/
-  fileName: nier.png
---- !u!114 &1688187790
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1688187787}
-  m_Enabled: 0
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: d7c7951568634ca39cec761d8f3bea97, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  inputPath: Assets/PostEffects/Test/Input/
-  outputPath: Assets/PostEffects/Test/Output/
-  fileName: 2b.png
-  highThreshold: 0.4
-  lowThreshold: 0.1
-  reduceNoise: 0
---- !u!114 &1688187794
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1688187787}
-  m_Enabled: 0
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 64b9b4b640f94ddf904dcf6f0ec77323, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  inputPath: Assets/PostEffects/Test/Input/
-  outputPath: Assets/PostEffects/Test/Output/
-  fileName: cayde6.png
-  highThreshold: 0.3
-  lowThreshold: 0.1
-  reduceNoise: 0
-  stipplingBias: 0.062
-  noiseScale: 1
-  edgeThickness: 0
---- !u!114 &1688187797
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1688187787}
-  m_Enabled: 0
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: ef604cf31e744d1e839498609502e11d, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  inputPath: Assets/PostEffects/Test/Input/
-  outputPath: Assets/PostEffects/Test/Output/
-  fileName: nier.png
-  kernelSize: 5
-  sigma1: 1.7
-  sigma2: 2.45
-  threshold: 0.04
---- !u!114 &1688187799
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1688187787}
-  m_Enabled: 0
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: fa6761f4dcb14350b170d5cf93b4d8f7, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  inputPath: Assets/PostEffects/Test/Input/
-  outputPath: Assets/PostEffects/Test/Output/
-  fileName: 2b.png
-  kernelSize: 5
-  sigma1: 1.7
-  sigma2: 2.45
-  threshold: 0.04
---- !u!114 &1688187802
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1688187787}
-  m_Enabled: 0
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: a322d091d74446e7b1d534f926c4d217, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  inputPath: Assets/PostEffects/Test/Input/
-  outputPath: Assets/PostEffects/Test/Output/
-  fileName: cayde6.png
-  colors: 20
-  downsamples: 1
-  spread: 0.017
 --- !u!114 &1688187804
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1008,6 +880,7 @@ MonoBehaviour:
   outputPath: Assets/PostEffects/Test/Output/
   fileName: riga.png
   sectorSize: 9
+  _kuwaharaMaterial: {fileID: 0}
 --- !u!1 &1823688464
 GameObject:
   m_ObjectHideFlags: 0
