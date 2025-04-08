@@ -5,8 +5,9 @@
 A collection of custom post-processing effects.
 
 ### Combined Kuwahara + Dithering
-![marik](Assets/PostEffects/Test/Output/postfx_kuwahara+dither__final_IMG_0887.png)
-> my cat Markiz
+![girl](Results/kuwahara_dither_girl.png)
+![marik](Results/marik.png)
+> my cat Markiz ⬆️
 
 ### Retro (downsampling + dithering + color limiter)
 ![nier](Results/retro_nier.png)
