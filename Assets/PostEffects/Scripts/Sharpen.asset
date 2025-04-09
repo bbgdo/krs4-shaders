@@ -9,7 +9,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 9a2ff0bf08e34b60bc6631f04e307af4, type: 3}
-  m_Name: Kuwahara
+  m_Script: {fileID: 11500000, guid: 631485b9efaa408ca2d54dc1b2ab1984, type: 3}
+  m_Name: Sharpen
   m_EditorClassIdentifier: 
-  sectorSize: 5
+  intensity: 1
