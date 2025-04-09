@@ -42,6 +42,7 @@ Shader "Custom/EdgeDetectionShader" {
         ENDCG
         
 
+        // TODO: remove gaussian blur as it is expensive 
         Pass {
             Name "Gaussian filter"
             

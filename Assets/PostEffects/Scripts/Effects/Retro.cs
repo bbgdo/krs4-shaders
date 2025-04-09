@@ -40,7 +40,6 @@ namespace PostEffects.Scripts.Effects {
             
             Graphics.Blit(rtDownsampler[--i], destination, _material, 1);
             
-            RenderTexture.active = null;
             foreach (RenderTexture curRt in rtDownsampler) {
                 curRt.Release();
             }

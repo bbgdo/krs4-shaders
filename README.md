@@ -9,6 +9,9 @@ A collection of custom post-processing effects.
 ![marik](Results/marik.png)
 > my cat Markiz ⬆️
 
+### Bloom (based on Kawase blur)
+![bloom ascii radiohead](Results/ascii_bloom_radiohead.png)
+
 ### Retro (downsampling + dithering + color limiter)
 ![nier](Results/retro_nier.png)
 ![cayde-6](Results/retro_cayde6.png) ![radiohead](Results/retro_radiohead.png)
