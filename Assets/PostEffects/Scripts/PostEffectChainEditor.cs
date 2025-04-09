@@ -32,8 +32,9 @@ namespace PostEffects.Scripts
 
             _scrollPos = EditorGUILayout.BeginScrollView(_scrollPos);
 
-            for (int i = 0; i < _effectChain.Count; i++)
-            {
+            int remove = -1;
+            
+            for (int i = 0; i < _effectChain.Count; i++) {
                 EditorGUILayout.BeginVertical("box");
 
                 _effectChain[i] = EditorGUILayout.ObjectField(
@@ -43,33 +44,32 @@ namespace PostEffects.Scripts
                     false
                 ) as BaseEffect;
                 
-                if (_effectChain[i] is not null)
-                {
+                if (_effectChain[i] is not null) {
                     Editor editor = Editor.CreateEditor(_effectChain[i]);
                     editor.OnInspectorGUI();
                 }
                 
                 EditorGUILayout.BeginHorizontal();
-                if (GUILayout.Button("▲", GUILayout.Width(30)) && i > 0)
-                {
+                if (GUILayout.Button("▲", GUILayout.Width(30)) && i > 0) {
                     (_effectChain[i], _effectChain[i - 1]) = (_effectChain[i - 1], _effectChain[i]);
                 }
 
-                if (GUILayout.Button("▼", GUILayout.Width(30)) && i < _effectChain.Count - 1)
-                {
+                if (GUILayout.Button("▼", GUILayout.Width(30)) && i < _effectChain.Count - 1) {
                     (_effectChain[i], _effectChain[i + 1]) = (_effectChain[i + 1], _effectChain[i]);
                 }
 
-                if (GUILayout.Button("Remove"))
-                {
-                    _effectChain.RemoveAt(i);
-                    break;
+                if (GUILayout.Button("Remove")) {
+                    remove = i;
                 }
 
                 EditorGUILayout.EndHorizontal();
                 EditorGUILayout.EndVertical();
             }
 
+            if (remove >= 0) {
+                _effectChain.RemoveAt(remove);
+            }
+            
             EditorGUILayout.EndScrollView();
             
             EditorGUILayout.BeginHorizontal();
