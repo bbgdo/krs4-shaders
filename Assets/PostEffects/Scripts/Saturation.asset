@@ -9,6 +9,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 5ff40114246c4e4da354a3da44f68223, type: 3}
-  m_Name: BW
+  m_Script: {fileID: 11500000, guid: f26d89e659c84f7093ccb7e62987f425, type: 3}
+  m_Name: Saturation
   m_EditorClassIdentifier: 
+  intensity: 1

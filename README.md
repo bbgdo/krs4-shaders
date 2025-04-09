@@ -25,7 +25,7 @@ A collection of custom post-processing effects.
 ![nier](Results/ed_nier.png)
 
 ## TODO
-- [ ] Kuwahara filter
+- [x] Kuwahara filter
 - [ ] Pixel sorting
 - [ ] Glitch
 - [ ] Enhancements for edges in Ascii
