@@ -2,10 +2,8 @@
 using UnityEditor;
 using UnityEngine;
 
-namespace PostEffects.Scripts
-{
-    public class PostEffectChainEditor : EditorWindow
-    {
+namespace PostEffects.Scripts {
+    public class PostEffectChainEditor : EditorWindow {
         private readonly List<BaseEffect> _effectChain = new();
         private Vector2 _scrollPos;
         private string _fileName = "nier.png";
@@ -14,13 +12,11 @@ namespace PostEffects.Scripts
         private string _outputFilePrefix = "";
 
         [MenuItem("Tools/Post Effect Chain")]
-        public static void ShowWindow()
-        {
+        public static void ShowWindow() {
             GetWindow<PostEffectChainEditor>("Post Effect Chain");
         }
 
-        void OnGUI()
-        {
+        void OnGUI() {
             GUILayout.Label("Input/Output Settings", EditorStyles.boldLabel);
             _fileName = EditorGUILayout.TextField("File Name", _fileName);
             _inputPath = EditorGUILayout.TextField("Input Path", _inputPath);
@@ -74,13 +70,11 @@ namespace PostEffects.Scripts
             
             EditorGUILayout.BeginHorizontal();
 
-            if (GUILayout.Button("Add Effect Slot"))
-            {
+            if (GUILayout.Button("Add Effect Slot")) {
                 _effectChain.Add(null);
             }
 
-            if (GUILayout.Button("Clear Chain"))
-            {
+            if (GUILayout.Button("Clear Chain")) {
                 if (EditorUtility.DisplayDialog("Clear Effect Chain", "Are you sure you want to clear the chain?", "Yes", "No"))
                 {
                     _effectChain.Clear();
@@ -91,8 +85,7 @@ namespace PostEffects.Scripts
 
             EditorGUILayout.Space();
 
-            if (GUILayout.Button("Run Chain"))
-            { 
+            if (GUILayout.Button("Run Chain")) { 
                 EffectProcessor.RunChain(_inputPath, _outputPath, _fileName, _effectChain, "postfx_" + _outputFilePrefix + "_");
             }
         }

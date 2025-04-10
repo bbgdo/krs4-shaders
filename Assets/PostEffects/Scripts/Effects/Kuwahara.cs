@@ -2,8 +2,7 @@
 
 namespace PostEffects.Scripts.Effects {
     [CreateAssetMenu(menuName = "PostEffects/Effects/Kuwahara")]
-    public class Kuwahara : BaseEffect
-    {
+    public class Kuwahara : BaseEffect {
         private static readonly int SectorSize = Shader.PropertyToID("_SectorSize");
         [Range(0, 20)] 
         public int sectorSize = 5;

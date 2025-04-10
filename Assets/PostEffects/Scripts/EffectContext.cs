@@ -1,7 +1,5 @@
-﻿namespace PostEffects.Scripts
-{
-    public class EffectContext
-    {
+﻿namespace PostEffects.Scripts {
+    public class EffectContext {
         public string inputPath;
         public string outputPath;
         public string fileName;

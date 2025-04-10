@@ -5,8 +5,8 @@ namespace PostEffects.Scripts.Effects {
     public class Retro : BaseEffect {
         private static readonly int Colors = Shader.PropertyToID("_Colors");
         private static readonly int Spread = Shader.PropertyToID("_Spread");
-        [Range(0, 256)]
-        public int colors = 256;
+        [Range(0, 255)]
+        public int colors = 255;
         [Range(0, 10)]
         public int downsamples;
         [Range(0.0f, 1.0f)]

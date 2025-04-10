@@ -1,15 +1,14 @@
-﻿Shader "Custom/BrightnessContrastShader" {
+﻿Shader "Custom/GradientMapShader" {
     Properties {
         _MainTex ("Texture", 2D) = "white" {}
-        _Contrast ("Contrast", Range(0, 2)) = 1.0
-        _Brightness ("Brightness", Range(-1, 1)) = 0.0
+        _GradientTex ("Gradient", 2D) = "white" {}
+        _Intensity ("Intensity", Range(0, 1)) = 1.0
     }
     SubShader {
         Cull Off
         ZWrite Off
         ZTest Always
-        Tags
-        {
+        Tags {
             "RenderType"="Opaque"
         }
         
@@ -25,8 +24,8 @@
                 float4 vertex : SV_POSITION;
             };
         
-            sampler2D _MainTex;
-            float _Contrast, _Brightness;
+            sampler2D _MainTex, _GradientTex;
+            float _Intensity;
             
             Interpolators vert (MeshData v) {
                 Interpolators o;
@@ -37,6 +36,7 @@
         ENDCG
 
         Pass {
+            Name "Point sampling"
             
             CGPROGRAM
             #pragma vertex vert
@@ -44,12 +44,9 @@
             
             float4 frag (Interpolators interp) : SV_Target {
                 float4 tex = tex2D(_MainTex, interp.uv);
-                // contrast
-                tex.rgb = (tex.rgb - 0.5) * _Contrast + 0.5;
-                // brightness
-                tex.rgb = saturate(tex.rgb + _Brightness);
-
-                return tex;
+                float4 gradient = tex2D(_GradientTex, float2(LinearRgbToLuminance(tex), 0));  
+                
+                return lerp(tex, gradient, _Intensity);
             }
             ENDCG
         }
