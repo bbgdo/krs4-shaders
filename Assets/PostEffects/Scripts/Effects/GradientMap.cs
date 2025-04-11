@@ -2,8 +2,7 @@
 
 namespace PostEffects.Scripts.Effects {
     [CreateAssetMenu(menuName = "PostEffects/Effects/GradientMap")]
-    public class GradientMap : BaseEffect
-    {
+    public class GradientMap : BaseEffect {
         private static readonly int Intensity = Shader.PropertyToID("_Intensity");
         private static readonly int GradientTex = Shader.PropertyToID("_GradientTex");
 
