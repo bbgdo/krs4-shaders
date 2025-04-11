@@ -69,7 +69,7 @@
                     return float4(sorted_color, 1);
                     // return float4(1,0,0,1);
                 }               
-
+                
                 return tex2D(_MainTex, interp.uv);
             }
             ENDCG

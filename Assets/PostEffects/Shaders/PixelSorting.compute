@@ -1,0 +1,32 @@
+﻿#pragma kernel CS_pixel_sorting
+#include "Lib/Luminance.cginc"
+
+RWTexture2D<float4> input;
+RWTexture2D<float4> output;
+
+[numthreads(8, 8, 1)]
+void CS_pixel_sorting (uint3 id : SV_DispatchThreadID) {
+    uint width, height;
+    input.GetDimensions(width, height);
+
+    uint x = id.x;
+
+    for (uint step = 0; step < height; step++) {
+        for (uint y = 0; y < height - 1; y++) {
+            float4 pixelA = input[uint2(x, y)];
+            float4 pixelB = input[uint2(x, y + 1)];
+
+            float luminanceA = luminance(pixelA.rgb);
+            float luminanceB = luminance(pixelB.rgb);
+
+            if (luminanceA > luminanceB) {
+                input[uint2(x, y)] = pixelB;
+                input[uint2(x, y + 1)] = pixelA;
+            }
+        }
+    }
+
+    for (uint y = 0; y < height; y++) {
+        output[uint2(x, y)] = input[uint2(x, y)];
+    }
+}
