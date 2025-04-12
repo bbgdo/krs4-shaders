@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ef604cf31e744d1e839498609502e11d, type: 3}
   m_Name: Difference Of Gaussians(Util)
   m_EditorClassIdentifier: 
-  kernelSize: 5
-  sigma1: 1
-  sigma2: 1.5
-  threshold: 0
+  kernelSize: 2
+  sigma1: 1.17
+  sigma2: 2.1
+  threshold: 0.06

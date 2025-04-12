@@ -14,14 +14,14 @@ A collection of custom post-processing effects.
 > my cat Markiz ⬆️
 
 ### Bloom (based on Kawase blur)
-![bloom ascii radiohead](Results/ascii_bloom_radiohead.png)
+![bloom ascii 2b](Results/bloom_ascii_2b.png)
 
 ### Retro (downsampling + dithering + color limiter)
-![cayde-6](Results/retro_cayde6.png) ![radiohead](Results/retro_radiohead.png)
+![cayde-6](Results/retro_cayde6.png)
 
 ### Ascii
-![radiohead](Results/ascii_radiohead.png)
 ![2b](Results/ascii_2b.png)
+![radiohead](Results/ascii_radiohead.png)
 
 ### Ink
 ![nier](Results/ink_nier.png)
@@ -38,3 +38,4 @@ A collection of custom post-processing effects.
 - [Dither](https://en.wikipedia.org/wiki/Dither)
 - [Ordered dithering](https://en.wikipedia.org/wiki/Ordered_dithering)
 - [Difference of Gaussians by Winnemoeller](https://users.cs.northwestern.edu/~sco590/winnemoeller-cag2012.pdf)
+- [Kawase blur](https://github.com/tomc128/urp-kawase-blur)
