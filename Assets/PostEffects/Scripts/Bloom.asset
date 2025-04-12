@@ -12,8 +12,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b9f0c29b08114419ae7efd88c2559f14, type: 3}
   m_Name: Bloom
   m_EditorClassIdentifier: 
-  downsamples: 3
-  threshold: 0.85
-  knee: 0.017
-  radius: 1
-  intensity: 0.183
+  downsamples: 4
+  threshold: 0.458
+  knee: 0.092
+  radius: 0
+  intensity: 0.304

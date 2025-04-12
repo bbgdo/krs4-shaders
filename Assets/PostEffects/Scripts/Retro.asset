@@ -12,6 +12,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a322d091d74446e7b1d534f926c4d217, type: 3}
   m_Name: Retro
   m_EditorClassIdentifier: 
-  colors: 7
-  downsamples: 1
-  spread: 0.07
+  colors: 22
+  downsamples: 0
+  spread: 0.036

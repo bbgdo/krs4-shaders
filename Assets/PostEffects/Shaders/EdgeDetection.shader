@@ -4,7 +4,6 @@ Shader "Custom/EdgeDetectionShader" {
         _MainTex ("Texture", 2D) = "white" {}
         _HighThreshold("High Threshold", Range(0, 1)) = 0.4
         _LowThreshold("Low Threshold", Range(0, 1)) = 0.1
-        _ReduceNoise("Reduce Noise", Int) = 0
     }
     SubShader {
         Cull Off
@@ -29,9 +28,7 @@ Shader "Custom/EdgeDetectionShader" {
         
             sampler2D _MainTex;
             float4 _MainTex_TexelSize;
-            float _HighThreshold;
-            float _LowThreshold;
-            int _ReduceNoise;
+            float _HighThreshold, _LowThreshold;
             
             Interpolators vert (MeshData v) {
                 Interpolators o;
@@ -42,46 +39,16 @@ Shader "Custom/EdgeDetectionShader" {
         ENDCG
         
 
-        // TODO: remove gaussian blur as it is expensive 
         Pass {
-            Name "Gaussian filter"
+            Name "Luminance"
             
             CGPROGRAM
             #pragma vertex vert
             #pragma fragment frag
             
             float4 frag (Interpolators interp) : SV_Target {
-                if (_ReduceNoise == 0) {
-                    float luminance =  LinearRgbToLuminance(tex2D(_MainTex, interp.uv));
-                    
-                    return luminance;
+                    return LinearRgbToLuminance(tex2D(_MainTex, interp.uv).rgb);
                 }
-
-                // TODO: change to 3x3 blur
-                float2 texel_size = _MainTex_TexelSize.xy;
-                int index = 0;
-                float blur = 0;
-                float gauss[25] = {
-                    2, 4, 5, 4, 2,
-                    4, 9, 12, 9, 4,
-                    5, 12, 15, 12, 5,
-                    4, 9, 12, 9, 4,
-                    2, 4, 5, 4, 2
-                };
-            
-                for (int i = -2; i <= 2; i++) {
-                    for (int j = -2; j <= 2; j++) {
-                        float2 shifted_uv = interp.uv + float2(i, j) * texel_size;
-                        float3 sample = tex2D(_MainTex, shifted_uv).rgb;
-                        float luminance = LinearRgbToLuminance(sample);
-                        blur += luminance * gauss[index];
-                        index++;
-                    }
-                }
-                float result = blur / 159.0;
-
-                return result;
-            }
             ENDCG
         }
         

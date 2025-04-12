@@ -12,3 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fa6761f4dcb14350b170d5cf93b4d8f7, type: 3}
   m_Name: Ascii
   m_EditorClassIdentifier: 
+  kernelSize: 5
+  sigma1: 1
+  sigma2: 1.5
+  threshold: 0

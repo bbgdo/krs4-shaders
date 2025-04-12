@@ -12,4 +12,4 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 631485b9efaa408ca2d54dc1b2ab1984, type: 3}
   m_Name: Sharpen
   m_EditorClassIdentifier: 
-  intensity: 1
+  intensity: 0.492
