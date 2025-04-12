@@ -51,7 +51,7 @@
                     return float4(color, 1);
                 }
 
-                return float4(0, 0, 0, 1);
+                return float4(0, 0, 0, 0);
             }
             ENDCG
         }
@@ -64,9 +64,9 @@
             #pragma fragment frag
             
             float4 frag (Interpolators interp) : SV_Target {
-                float3 sorted_color = tex2D(_SortedTex, interp.uv).rgb;
-                if(LinearRgbToLuminance(sorted_color) > 0) {
-                    return float4(sorted_color, 1);
+                float4 sorted_color = tex2D(_SortedTex, interp.uv);
+                if(sorted_color.a > 0) {
+                    return float4(sorted_color);
                     // return float4(1,0,0,1);
                 }               
                 

@@ -4,6 +4,29 @@
 RWTexture2D<float4> input;
 RWTexture2D<float4> output;
 
+// TODO: add ability to choose sorting direction
+
+void insertion_sort_range(uint x, uint startY, uint endY) {
+    for (uint i = startY + 1; i < endY; i++) {
+        float4 key_pixel = input[uint2(x, i)];
+        float key_luminance = luminance(key_pixel.rgb);
+
+        int j = int(i) - 1;
+        while (j >= int(startY)) {
+            float4 compare_pixel = input[uint2(x, j)];
+            float compare_luminance = luminance(compare_pixel.rgb);
+
+            if (compare_luminance > key_luminance) {
+                input[uint2(x, j + 1)] = compare_pixel;
+                j--;
+            } else {
+                break;
+            }
+        }
+        input[uint2(x, j + 1)] = key_pixel;
+    }
+}
+
 [numthreads(1, 1, 1)]
 void CS_pixel_sorting(uint3 id : SV_DispatchThreadID) {
     uint width, height;
@@ -11,23 +34,24 @@ void CS_pixel_sorting(uint3 id : SV_DispatchThreadID) {
 
     uint x = id.x;
 
-    for (uint y = 1; y < height; y++) {
-        float4 keyPixel = input[uint2(x, y)];
-        float keyLuminance = luminance(keyPixel.rgb);
 
-        int j = int(y) - 1;
-        while (j >= 0) {
-            float4 comparePixel = input[uint2(x, j)];
-            float compareLuminance = luminance(comparePixel.rgb);
-
-            if (compareLuminance > keyLuminance) {
-                input[uint2(x, j + 1)] = comparePixel;
-                j--;
-            } else {
-                break;
-            }
+    uint y = 0;
+    while (y < height) {
+        while (y < height) {
+            float alpha = input[uint2(x, y)].a;
+            if (alpha > 0) break;
+            y++;
         }
-        input[uint2(x, j + 1)] = keyPixel;
+        uint startY = y;
+
+        while (y < height) {
+            float alpha = input[uint2(x, y)].a;
+            if (alpha == 0) break;
+            y++;
+        }
+        uint endY = y;
+
+        insertion_sort_range(x, startY, endY);
     }
 
     for (uint out_y = 0; out_y < height; out_y++) {
