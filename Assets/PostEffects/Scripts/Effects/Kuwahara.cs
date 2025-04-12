@@ -10,11 +10,7 @@ namespace PostEffects.Scripts.Effects {
         private Material _material;
 
         public override void Apply(RenderTexture source, RenderTexture destination, EffectContext context) {
-            if (_material is null)
-            {
-                Shader shader = Shader.Find("Custom/KuwaharaShader");
-                _material = new Material(shader);
-            }
+            _material = new Material(Shader.Find("Custom/KuwaharaShader"));
 
             _material.SetInt(SectorSize, sectorSize);
             Graphics.Blit(source, destination, _material);

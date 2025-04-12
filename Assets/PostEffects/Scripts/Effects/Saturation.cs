@@ -11,11 +11,7 @@ namespace PostEffects.Scripts.Effects {
         private Material _material;
 
         public override void Apply(RenderTexture source, RenderTexture destination, EffectContext context) {
-            if (_material is null)
-            {
-                Shader shader = Shader.Find("Custom/SaturationShader");
-                _material = new Material(shader);
-            }
+            _material = new Material(Shader.Find("Custom/SaturationShader"));
 
             _material.SetFloat(Intensity, intensity);
             Graphics.Blit(source, destination, _material);

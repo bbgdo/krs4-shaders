@@ -6,11 +6,19 @@ namespace PostEffects.Scripts.Effects {
         private static readonly int LowThreshold = Shader.PropertyToID("_LowThreshold");
         private static readonly int HighThreshold = Shader.PropertyToID("_HighThreshold");
         private static readonly int SortedTex = Shader.PropertyToID("_SortedTex");
+        private static readonly int SortAxis = Shader.PropertyToID("sort_axis");
+        private static readonly int Direction = Shader.PropertyToID("sort_direction");
+        private static readonly int ComputeInput = Shader.PropertyToID("input");
+        private static readonly int ComputeOutput = Shader.PropertyToID("output");
 
         [Range(0, 1)] 
         public float lowThreshold = 0.5f;
         [Range(0, 1)] 
         public float highThreshold = 0.65f;
+        public enum SortDirection {
+            Up, Down, Left, Right
+        }
+        public SortDirection direction;
 
         public ComputeShader pixelSorter;
         
@@ -18,10 +26,7 @@ namespace PostEffects.Scripts.Effects {
         private Material _material;
 
         public override void Apply(RenderTexture source, RenderTexture destination, EffectContext context) {
-            if (_material is null) {
-                Shader shader = Shader.Find("Custom/PixelSortingShader");
-                _material = new Material(shader);
-            }
+            _material = new Material(Shader.Find("Custom/PixelSortingShader"));
             
             _material.SetFloat(LowThreshold, lowThreshold);
             _material.SetFloat(HighThreshold, highThreshold);
@@ -39,12 +44,19 @@ namespace PostEffects.Scripts.Effects {
             Graphics.Blit(source, rtMask, _material, 0);
             
             _sortPixelsKernel = pixelSorter.FindKernel("CS_pixel_sorting");
+            int sortAxis = direction is SortDirection.Left or SortDirection.Right ? 1 : 0;
+            int sortDir = direction is SortDirection.Down or SortDirection.Left ? 0 : 1;
+
+            pixelSorter.SetInt(SortAxis, sortAxis);
+            pixelSorter.SetInt(Direction, sortDir);
+            pixelSorter.SetTexture(_sortPixelsKernel, ComputeInput, rtMask);
+            pixelSorter.SetTexture(_sortPixelsKernel, ComputeOutput, rtSorted);
             
-            pixelSorter.SetTexture(_sortPixelsKernel, "input", rtMask);
-            pixelSorter.SetTexture(_sortPixelsKernel, "output", rtSorted);
-            
-            pixelSorter.Dispatch(_sortPixelsKernel, context.width, 1, 1);
-            
+            if (sortAxis == 0) {
+                pixelSorter.Dispatch(_sortPixelsKernel, context.width, 1, 1);
+            } else {
+                pixelSorter.Dispatch(_sortPixelsKernel, 1, context.height, 1);
+            }            
             _material.SetTexture(SortedTex, rtSorted);
             
             Graphics.Blit(source, destination, _material, 1);

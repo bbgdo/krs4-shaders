@@ -4,6 +4,10 @@
 
 A collection of custom post-processing effects.
 
+### Pixel sorting
+![mads1](Results/pixelsorting_dithering_mads.png)
+![mads2](Results/ascii_pixelsorting_mads.png)
+
 ### Combined Kuwahara + Dithering
 ![girl](Results/kuwahara_dither_girl.png)
 ![marik](Results/marik.png)
@@ -13,7 +17,6 @@ A collection of custom post-processing effects.
 ![bloom ascii radiohead](Results/ascii_bloom_radiohead.png)
 
 ### Retro (downsampling + dithering + color limiter)
-![nier](Results/retro_nier.png)
 ![cayde-6](Results/retro_cayde6.png) ![radiohead](Results/retro_radiohead.png)
 
 ### Ascii

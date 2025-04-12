@@ -10,12 +10,9 @@ namespace PostEffects.Scripts.Effects {
         private Material _asciiMaterial;
 
         public override void Apply(RenderTexture source, RenderTexture destination, EffectContext context) {
-            if (_asciiMaterial is null) {
-                Shader shader = Shader.Find("Custom/AsciiShader");
-                _asciiMaterial = new Material(shader);
+            _asciiMaterial = new Material(Shader.Find("Custom/AsciiShader"));
             
-            }
-            // integrate _dogMaterial for better sobel operator for ED
+            // TODO: integrate _dogMaterial for better sobel operator for ED
             
             Texture2D asciiLod = Resources.Load<Texture2D>("1x0 8x8 3");
             _asciiMaterial.SetTexture(AsciiTex, asciiLod);

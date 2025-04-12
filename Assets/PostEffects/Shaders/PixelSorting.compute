@@ -1,29 +1,41 @@
 ﻿#pragma kernel CS_pixel_sorting
 #include "Lib/Luminance.cginc"
 
+cbuffer SortingParams {
+    uint sort_axis;
+    uint sort_direction;
+}
+
 RWTexture2D<float4> input;
 RWTexture2D<float4> output;
 
-// TODO: add ability to choose sorting direction
+uint2 coord(uint current_point, uint fixed) {
+    return sort_axis == 0 ? uint2(fixed, current_point) : uint2(current_point, fixed);
+}
 
-void insertion_sort_range(uint x, uint startY, uint endY) {
-    for (uint i = startY + 1; i < endY; i++) {
-        float4 key_pixel = input[uint2(x, i)];
+void insertion_sort_range(uint fixedCoord, uint startMain, uint endMain) {
+    for (uint i = startMain + 1; i < endMain; i++) {
+        uint2 current_coord = coord(i, fixedCoord);
+        float4 key_pixel = input[current_coord];
         float key_luminance = luminance(key_pixel.rgb);
 
         int j = int(i) - 1;
-        while (j >= int(startY)) {
-            float4 compare_pixel = input[uint2(x, j)];
+        while (j >= int(startMain)) {
+            float4 compare_pixel = input[coord(j, fixedCoord)];
             float compare_luminance = luminance(compare_pixel.rgb);
 
-            if (compare_luminance > key_luminance) {
-                input[uint2(x, j + 1)] = compare_pixel;
+            bool swappable = sort_direction == 1
+                ? compare_luminance > key_luminance
+                : compare_luminance < key_luminance;
+
+            if (swappable) {
+                input[coord(j + 1, fixedCoord)] = compare_pixel;
                 j--;
             } else {
                 break;
             }
         }
-        input[uint2(x, j + 1)] = key_pixel;
+        input[coord(j + 1, fixedCoord)] = key_pixel;
     }
 }
 
@@ -32,29 +44,31 @@ void CS_pixel_sorting(uint3 id : SV_DispatchThreadID) {
     uint width, height;
     input.GetDimensions(width, height);
 
-    uint x = id.x;
+    uint fixed_coord = sort_axis == 0 ? id.x : id.y;
+    uint max_point = sort_axis == 0 ? height : width;
 
-
-    uint y = 0;
-    while (y < height) {
-        while (y < height) {
-            float alpha = input[uint2(x, y)].a;
+    uint current_point = 0;
+    while (current_point < max_point) {
+        while (current_point < max_point) {
+            float alpha = input[coord(current_point, fixed_coord)].a;
             if (alpha > 0) break;
-            y++;
+            current_point++;
         }
-        uint startY = y;
+        uint start_main = current_point;
 
-        while (y < height) {
-            float alpha = input[uint2(x, y)].a;
+        while (current_point < max_point) {
+            float alpha = input[coord(current_point, fixed_coord)].a;
             if (alpha == 0) break;
-            y++;
+            current_point++;
         }
-        uint endY = y;
+        uint end_main = current_point;
 
-        insertion_sort_range(x, startY, endY);
+        if (start_main < end_main) {
+            insertion_sort_range(fixed_coord, start_main, end_main);
+        }
     }
 
-    for (uint out_y = 0; out_y < height; out_y++) {
-        output[uint2(x, out_y)] = input[uint2(x, out_y)];
+    for (uint i = 0; i < max_point; i++) {
+        output[coord(i, fixed_coord)] = input[coord(i, fixed_coord)];
     }
 }

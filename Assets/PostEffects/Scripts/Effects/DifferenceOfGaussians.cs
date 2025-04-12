@@ -19,10 +19,7 @@ namespace PostEffects.Scripts.Effects {
         private Material _material;
 
         public override void Apply(RenderTexture source, RenderTexture destination, EffectContext context) {
-            if (_material is null) {
-                Shader shader = Shader.Find("Custom/DoGShader");
-                _material = new Material(shader);
-            }
+            _material = new Material(Shader.Find("Custom/DoGShader"));
             
             _material.SetInt(GaussianKernelSize, kernelSize);
             _material.SetFloat(Sigma1, sigma1);

@@ -17,11 +17,7 @@ namespace PostEffects.Scripts.Effects {
         private Material _material;
 
         public override void Apply(RenderTexture source, RenderTexture destination, EffectContext context) {
-            if (_material is null)
-            {
-                Shader shader = Shader.Find("Custom/GradientMapShader");
-                _material = new Material(shader);
-            }
+            _material = new Material(Shader.Find("Custom/GradientMapShader"));
 
             Texture2D usedTex = gradientTexture ? gradientTexture : GenerateGradientTexture();
             _material.SetTexture(GradientTex, usedTex);
@@ -30,14 +26,10 @@ namespace PostEffects.Scripts.Effects {
         }
         
         private Texture2D GenerateGradientTexture() {
-            if (_generatedGradient is null || _generatedGradient.width != gradientResolution)
-            {
-                _generatedGradient = new Texture2D(gradientResolution, 1, TextureFormat.RGBA32, false)
-                {
-                    wrapMode = TextureWrapMode.Clamp,
-                    filterMode = FilterMode.Bilinear
-                };
-            }
+            _generatedGradient = new Texture2D(gradientResolution, 1, TextureFormat.RGBA32, false) {
+                wrapMode = TextureWrapMode.Clamp,
+                filterMode = FilterMode.Bilinear
+            };
 
             for (int i = 0; i < gradientResolution; i++)
             {

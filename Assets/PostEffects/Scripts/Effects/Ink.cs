@@ -29,14 +29,8 @@ namespace PostEffects.Scripts.Effects {
         private Material _edgeDetectionMaterial;
 
         public override void Apply(RenderTexture source, RenderTexture destination, EffectContext context) {
-            if (_inkMaterial is null) {
-                Shader shader = Shader.Find("Custom/InkShader");
-                _inkMaterial = new Material(shader);
-            }
-            if (_edgeDetectionMaterial is null) {
-                Shader shader = Shader.Find("Custom/EdgeDetectionShader");
-                _edgeDetectionMaterial = new Material(shader);
-            }
+            _inkMaterial = new Material(Shader.Find("Custom/InkShader"));
+            _edgeDetectionMaterial = new Material(Shader.Find("Custom/EdgeDetectionShader"));
             
             _edgeDetectionMaterial.SetFloat(HighThreshold, highThreshold);
             _edgeDetectionMaterial.SetFloat(LowThreshold, lowThreshold);
