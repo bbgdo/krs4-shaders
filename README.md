@@ -27,14 +27,6 @@ A collection of custom post-processing effects.
 ### Canny Edge Detection
 ![nier](Results/ed_nier.png)
 
-## TODO
-- [x] Kuwahara filter
-- [ ] Pixel sorting
-- [ ] Glitch
-- [ ] Enhancements for edges in Ascii
-- [ ] Basic tweaks: brightness, contrast, antialiasing, bloom, gradient map
-- [ ] Datamoshing
-
 ## Links
 - inspired by [Acerola](https://www.youtube.com/@Acerola_t), [Yusef28](https://www.youtube.com/@Yusef28), [Jam2go](https://www.youtube.com/@Jam2go/videos)
 - [Canny edge detector](https://en.wikipedia.org/wiki/Canny_edge_detector)

@@ -4,29 +4,33 @@
 RWTexture2D<float4> input;
 RWTexture2D<float4> output;
 
-[numthreads(8, 8, 1)]
-void CS_pixel_sorting (uint3 id : SV_DispatchThreadID) {
+[numthreads(1, 1, 1)]
+void CS_pixel_sorting(uint3 id : SV_DispatchThreadID) {
     uint width, height;
     input.GetDimensions(width, height);
 
     uint x = id.x;
 
-    for (uint step = 0; step < height; step++) {
-        for (uint y = 0; y < height - 1; y++) {
-            float4 pixelA = input[uint2(x, y)];
-            float4 pixelB = input[uint2(x, y + 1)];
+    for (uint y = 1; y < height; y++) {
+        float4 keyPixel = input[uint2(x, y)];
+        float keyLuminance = luminance(keyPixel.rgb);
 
-            float luminanceA = luminance(pixelA.rgb);
-            float luminanceB = luminance(pixelB.rgb);
+        int j = int(y) - 1;
+        while (j >= 0) {
+            float4 comparePixel = input[uint2(x, j)];
+            float compareLuminance = luminance(comparePixel.rgb);
 
-            if (luminanceA > luminanceB) {
-                input[uint2(x, y)] = pixelB;
-                input[uint2(x, y + 1)] = pixelA;
+            if (compareLuminance > keyLuminance) {
+                input[uint2(x, j + 1)] = comparePixel;
+                j--;
+            } else {
+                break;
             }
         }
+        input[uint2(x, j + 1)] = keyPixel;
     }
 
-    for (uint y = 0; y < height; y++) {
-        output[uint2(x, y)] = input[uint2(x, y)];
+    for (uint out_y = 0; out_y < height; out_y++) {
+        output[uint2(x, out_y)] = input[uint2(x, out_y)];
     }
 }

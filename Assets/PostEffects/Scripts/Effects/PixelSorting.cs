@@ -2,8 +2,7 @@
 
 namespace PostEffects.Scripts.Effects {
     [CreateAssetMenu(menuName = "PostEffects/Effects/PixelSorting")]
-    public class PixelSorting : BaseEffect
-    {
+    public class PixelSorting : BaseEffect {
         private static readonly int LowThreshold = Shader.PropertyToID("_LowThreshold");
         private static readonly int HighThreshold = Shader.PropertyToID("_HighThreshold");
         private static readonly int SortedTex = Shader.PropertyToID("_SortedTex");
@@ -44,12 +43,12 @@ namespace PostEffects.Scripts.Effects {
             pixelSorter.SetTexture(_sortPixelsKernel, "input", rtMask);
             pixelSorter.SetTexture(_sortPixelsKernel, "output", rtSorted);
             
-            pixelSorter.Dispatch(_sortPixelsKernel, Mathf.CeilToInt(context.width / 8.0f), 1, 1);
+            pixelSorter.Dispatch(_sortPixelsKernel, context.width, 1, 1);
             
             _material.SetTexture(SortedTex, rtSorted);
             
             Graphics.Blit(source, destination, _material, 1);
-
+        
             rtMask.Release();
             rtSorted.Release();
         }

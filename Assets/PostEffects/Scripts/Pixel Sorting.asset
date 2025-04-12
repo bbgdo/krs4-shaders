@@ -12,6 +12,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 91e6b1c1fc8647e0948f24ca76236b20, type: 3}
   m_Name: Pixel Sorting
   m_EditorClassIdentifier: 
-  lowThreshold: 0.125
+  lowThreshold: 0
   highThreshold: 1
   pixelSorter: {fileID: 7200000, guid: 4793584c5165411fb1a7704793aef193, type: 3}
