@@ -12,5 +12,5 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 59aaac20e19c4df4b7e870688e168318, type: 3}
   m_Name: Brightness Contrast
   m_EditorClassIdentifier: 
-  contrast: 1.77
-  brightness: 0.3
+  contrast: 1.02
+  brightness: 0
