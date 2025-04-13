@@ -1,6 +1,6 @@
 ﻿using UnityEngine;
 
-namespace PostEffects.Scripts.EditorScripts.Effects {
+namespace PostEffects.Scripts.Effects {
     [CreateAssetMenu(menuName = "PostEffects/Effects/Bloom")]
     public class Bloom : BaseEffect {
         private static readonly int Threshold = Shader.PropertyToID("_Threshold");
@@ -23,7 +23,7 @@ namespace PostEffects.Scripts.EditorScripts.Effects {
         private Material _material;
 
         public override void Apply(RenderTexture source, RenderTexture destination, EffectContext context) {
-            _material = new Material(Shader.Find("Hidden/Custom/BloomShader"));
+            _material = new Material(Shader.Find("Custom/BloomShader"));
 
             _material.SetFloat(Threshold, threshold);
             _material.SetFloat(Knee, knee);

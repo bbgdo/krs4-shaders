@@ -1,6 +1,6 @@
 ﻿using UnityEngine;
 
-namespace PostEffects.Scripts.EditorScripts.Effects {
+namespace PostEffects.Scripts.Effects {
     [CreateAssetMenu(menuName = "PostEffects/Effects/Kuwahara")]
     public class Kuwahara : BaseEffect {
         private static readonly int SectorSize = Shader.PropertyToID("_SectorSize");
@@ -10,7 +10,7 @@ namespace PostEffects.Scripts.EditorScripts.Effects {
         private Material _material;
 
         public override void Apply(RenderTexture source, RenderTexture destination, EffectContext context) {
-            _material = new Material(Shader.Find("Hidden/Custom/KuwaharaShader"));
+            _material = new Material(Shader.Find("Custom/KuwaharaShader"));
 
             _material.SetInt(SectorSize, sectorSize);
             Graphics.Blit(source, destination, _material);

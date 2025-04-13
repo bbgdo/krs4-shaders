@@ -1,6 +1,6 @@
 ﻿using UnityEngine;
 
-namespace PostEffects.Scripts.EditorScripts.Effects {
+namespace PostEffects.Scripts.Effects {
     [CreateAssetMenu(menuName = "PostEffects/Effects/Ascii")]
     public class Ascii : BaseEffect
     {
@@ -25,8 +25,8 @@ namespace PostEffects.Scripts.EditorScripts.Effects {
         private Material _dogMaterial;
 
         public override void Apply(RenderTexture source, RenderTexture destination, EffectContext context) {
-            _asciiMaterial = new Material(Shader.Find("Hidden/Custom/AsciiShader"));
-            _dogMaterial = new Material(Shader.Find("Hidden/Custom/DoGShader"));
+            _asciiMaterial = new Material(Shader.Find("Custom/AsciiShader"));
+            _dogMaterial = new Material(Shader.Find("Custom/DoGShader"));
             
             Texture2D asciiLut = Resources.Load<Texture2D>("1x0 8x8 3");
             _asciiMaterial.SetTexture(AsciiTex, asciiLut);

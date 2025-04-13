@@ -1,5 +1,5 @@
 ﻿// Canny edge detection
-Shader "Hidden/Custom/EdgeDetectionShader" {
+Shader "Custom/EdgeDetectionShader" {
     Properties {
         _MainTex ("Texture", 2D) = "white" {}
         _HighThreshold("High Threshold", Range(0, 1)) = 0.4

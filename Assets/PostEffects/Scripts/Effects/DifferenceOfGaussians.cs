@@ -1,6 +1,6 @@
 ﻿using UnityEngine;
 
-namespace PostEffects.Scripts.EditorScripts.Effects {
+namespace PostEffects.Scripts.Effects {
     [CreateAssetMenu(menuName = "PostEffects/Effects/DoG")]
     public class DifferenceOfGaussians : BaseEffect {
         private static readonly int GaussianKernelSize = Shader.PropertyToID("_GaussianKernelSize");
@@ -19,7 +19,7 @@ namespace PostEffects.Scripts.EditorScripts.Effects {
         private Material _material;
 
         public override void Apply(RenderTexture source, RenderTexture destination, EffectContext context) {
-            _material = new Material(Shader.Find("Hidden/Custom/DoGShader"));
+            _material = new Material(Shader.Find("Custom/DoGShader"));
             
             _material.SetInt(GaussianKernelSize, kernelSize);
             _material.SetFloat(Sigma1, sigma1);

@@ -1,6 +1,6 @@
 ﻿using UnityEngine;
 
-namespace PostEffects.Scripts.EditorScripts.Effects {
+namespace PostEffects.Scripts.Effects {
     [CreateAssetMenu(menuName = "PostEffects/Effects/PixelSorting")]
     public class PixelSorting : BaseEffect {
         private static readonly int LowThreshold = Shader.PropertyToID("_LowThreshold");
@@ -26,7 +26,7 @@ namespace PostEffects.Scripts.EditorScripts.Effects {
         private Material _material;
 
         public override void Apply(RenderTexture source, RenderTexture destination, EffectContext context) {
-            _material = new Material(Shader.Find("Hidden/Custom/PixelSortingShader"));
+            _material = new Material(Shader.Find("Custom/PixelSortingShader"));
             
             _material.SetFloat(LowThreshold, lowThreshold);
             _material.SetFloat(HighThreshold, highThreshold);

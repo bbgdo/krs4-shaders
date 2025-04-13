@@ -1,6 +1,6 @@
 ﻿using UnityEngine;
 
-namespace PostEffects.Scripts.EditorScripts.Effects {
+namespace PostEffects.Scripts.Effects {
     [CreateAssetMenu(menuName = "PostEffects/Effects/EdgeDetection")]
     public class EdgeDetection : BaseEffect
     {
@@ -14,7 +14,7 @@ namespace PostEffects.Scripts.EditorScripts.Effects {
         private Material _material;
 
         public override void Apply(RenderTexture source, RenderTexture destination, EffectContext context) {
-            _material = new Material(Shader.Find("Hidden/Custom/EdgeDetectionShader"));
+            _material = new Material(Shader.Find("Custom/EdgeDetectionShader"));
             
             _material.SetFloat(HighThreshold, highThreshold);
             _material.SetFloat(LowThreshold, lowThreshold);

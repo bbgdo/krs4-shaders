@@ -1,4 +1,4 @@
-﻿Shader "Hidden/Custom/InkShader" {
+﻿Shader "Custom/InkShader" {
     Properties {
         _MainTex ("Texture", 2D) = "white" {}
         _NoiseTex ("Noise Texture", 2D) = "white" {}

@@ -1,4 +1,4 @@
-﻿Shader "Hidden/Custom/GradientMapShader" {
+﻿Shader "Custom/GradientMapShader" {
     Properties {
         _MainTex ("Texture", 2D) = "white" {}
         _GradientTex ("Gradient", 2D) = "white" {}

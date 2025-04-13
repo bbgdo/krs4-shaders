@@ -1,6 +1,6 @@
 ﻿using UnityEngine;
 
-namespace PostEffects.Scripts.EditorScripts.Effects {
+namespace PostEffects.Scripts.Effects {
     [CreateAssetMenu(menuName = "PostEffects/Effects/Ink")]
     public class Ink : BaseEffect {
         private static readonly int LowThreshold = Shader.PropertyToID("_LowThreshold");
@@ -26,8 +26,8 @@ namespace PostEffects.Scripts.EditorScripts.Effects {
         private Material _edgeDetectionMaterial;
 
         public override void Apply(RenderTexture source, RenderTexture destination, EffectContext context) {
-            _inkMaterial = new Material(Shader.Find("Hidden/Custom/InkShader"));
-            _edgeDetectionMaterial = new Material(Shader.Find("Hidden/Custom/EdgeDetectionShader"));
+            _inkMaterial = new Material(Shader.Find("Custom/InkShader"));
+            _edgeDetectionMaterial = new Material(Shader.Find("Custom/EdgeDetectionShader"));
             
             _edgeDetectionMaterial.SetFloat(HighThreshold, highThreshold);
             _edgeDetectionMaterial.SetFloat(LowThreshold, lowThreshold);

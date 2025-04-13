@@ -1,6 +1,6 @@
 ﻿using UnityEngine;
 
-namespace PostEffects.Scripts.EditorScripts.Effects {
+namespace PostEffects.Scripts.Effects {
     [CreateAssetMenu(menuName = "PostEffects/Effects/BrightnessContrast")]
     public class BrightnessContrast : BaseEffect
     {
@@ -15,7 +15,7 @@ namespace PostEffects.Scripts.EditorScripts.Effects {
         private Material _material;
 
         public override void Apply(RenderTexture source, RenderTexture destination, EffectContext context) {
-            _material = new Material(Shader.Find("Hidden/Custom/BrightnessContrastShader"));
+            _material = new Material(Shader.Find("Custom/BrightnessContrastShader"));
 
             _material.SetFloat(Contrast, contrast);
             _material.SetFloat(Brightness, brightness);

@@ -1,6 +1,6 @@
 ﻿using UnityEngine;
 
-namespace PostEffects.Scripts.EditorScripts.Effects {
+namespace PostEffects.Scripts.Effects {
     [CreateAssetMenu(menuName = "PostEffects/Effects/Retro")]
     public class Retro : BaseEffect {
         private static readonly int Colors = Shader.PropertyToID("_Colors");
@@ -15,7 +15,7 @@ namespace PostEffects.Scripts.EditorScripts.Effects {
         private Material _material;
 
         public override void Apply(RenderTexture source, RenderTexture destination, EffectContext context) {
-            _material = new Material(Shader.Find("Hidden/Custom/RetroShader"));
+            _material = new Material(Shader.Find("Custom/RetroShader"));
             
             _material.SetInt(Colors, colors);
             _material.SetFloat(Spread, spread);

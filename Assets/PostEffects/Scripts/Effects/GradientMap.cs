@@ -1,6 +1,6 @@
 ﻿using UnityEngine;
 
-namespace PostEffects.Scripts.EditorScripts.Effects {
+namespace PostEffects.Scripts.Effects {
     [CreateAssetMenu(menuName = "PostEffects/Effects/GradientMap")]
     public class GradientMap : BaseEffect {
         private static readonly int Intensity = Shader.PropertyToID("_Intensity");
@@ -17,7 +17,7 @@ namespace PostEffects.Scripts.EditorScripts.Effects {
         private Material _material;
 
         public override void Apply(RenderTexture source, RenderTexture destination, EffectContext context) {
-            _material = new Material(Shader.Find("Hidden/Custom/GradientMapShader"));
+            _material = new Material(Shader.Find("Custom/GradientMapShader"));
 
             Texture2D usedTex = gradientTexture ? gradientTexture : GenerateGradientTexture();
             _material.SetTexture(GradientTex, usedTex);

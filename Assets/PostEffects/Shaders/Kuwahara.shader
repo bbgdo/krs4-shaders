@@ -1,4 +1,5 @@
-﻿Shader "Hidden/Custom/KuwaharaShader" {
+﻿Shader
+"Custom/KuwaharaShader" {
     Properties {
         _MainTex ("Texture", 2D) = "white" {}
         _SectorSize ("Sector Size", Int) = 2

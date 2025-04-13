@@ -1,4 +1,4 @@
-﻿Shader "Hidden/Custom/SharpenShader" {
+﻿Shader "Custom/SharpenShader" {
     Properties {
         _MainTex ("Texture", 2D) = "white" {}
         _Intensity ("Intensity", Range(0, 1)) = 1.0
