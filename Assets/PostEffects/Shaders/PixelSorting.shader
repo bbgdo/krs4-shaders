@@ -1,4 +1,4 @@
-﻿Shader "Custom/PixelSortingShader" {
+﻿Shader "Hidden/Custom/PixelSortingShader" {
     Properties {
         _MainTex ("Texture", 2D) = "white" {}
         _LowThreshold ("Lower Threshold", Range(0, 2)) = 1.0

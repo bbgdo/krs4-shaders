@@ -1,4 +1,4 @@
-﻿Shader "Custom/BrightnessContrastShader" {
+﻿Shader "Hidden/Custom/BrightnessContrastShader" {
     Properties {
         _MainTex ("Texture", 2D) = "white" {}
         _Contrast ("Contrast", Range(0, 2)) = 1.0

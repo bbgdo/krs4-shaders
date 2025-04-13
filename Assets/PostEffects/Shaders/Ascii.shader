@@ -1,4 +1,4 @@
-﻿Shader "Custom/AsciiShader" {
+﻿Shader "Hidden/Custom/AsciiShader" {
     Properties {
         _MainTex ("Texture", 2D) = "white" {}
     }

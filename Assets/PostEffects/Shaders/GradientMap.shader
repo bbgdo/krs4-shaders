@@ -1,4 +1,4 @@
-﻿Shader "Custom/GradientMapShader" {
+﻿Shader "Hidden/Custom/GradientMapShader" {
     Properties {
         _MainTex ("Texture", 2D) = "white" {}
         _GradientTex ("Gradient", 2D) = "white" {}
@@ -47,6 +47,7 @@
                 float4 gradient = tex2D(_GradientTex, float2(LinearRgbToLuminance(tex), 0));  
                 
                 return lerp(tex, gradient, _Intensity);
+                // return float4(1, 0, 0, 1);
             }
             ENDCG
         }

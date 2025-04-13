@@ -1,4 +1,4 @@
-﻿Shader "Custom/SaturationShader" {
+﻿Shader "Hidden/Custom/SaturationShader" {
     Properties {
         _MainTex ("Texture", 2D) = "white" {}
         _Intensity ("Intensity", Range(0, 2)) = 1.0

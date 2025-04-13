@@ -1,4 +1,4 @@
-﻿Shader "Custom/BloomShader" {
+﻿Shader "Hidden/Custom/BloomShader" {
     Properties {
         _MainTex ("Texture", 2D) = "white" {}
         _Threshold ("Threshold", Range(0, 1)) = 0.9

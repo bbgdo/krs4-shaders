@@ -1,0 +1,47 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2436a032a027439f8c731fa968bfbd47, type: 3}
+  m_Name: Gradient Map
+  m_EditorClassIdentifier: 
+  gradientTexture: {fileID: 0}
+  gradient:
+    serializedVersion: 2
+    key0: {r: 0.1372549, g: 0.5184691, b: 0.7176471, a: 1}
+    key1: {r: 0.8058573, g: 0.8862745, b: 0.5058824, a: 1}
+    key2: {r: 0.8, g: 0.37657073, b: 0.101960756, a: 0}
+    key3: {r: 0.78431374, g: 0.117647044, b: 0.4465207, a: 0}
+    key4: {r: 0.2, g: 0.052794915, b: 0.035294116, a: 0}
+    key5: {r: 0.12549019, g: 0.45485762, b: 0.8117647, a: 0}
+    key6: {r: 0.90851796, g: 0.4767506, b: 0.5265396, a: 0}
+    key7: {r: 1, g: 0.8066038, b: 0.8633739, a: 0}
+    ctime0: 0
+    ctime1: 9059
+    ctime2: 18311
+    ctime3: 23901
+    ctime4: 32189
+    ctime5: 46453
+    ctime6: 56283
+    ctime7: 65535
+    atime0: 0
+    atime1: 65535
+    atime2: 0
+    atime3: 0
+    atime4: 0
+    atime5: 0
+    atime6: 0
+    atime7: 0
+    m_Mode: 0
+    m_ColorSpace: 0
+    m_NumColorKeys: 8
+    m_NumAlphaKeys: 2
+  gradientResolution: 256
+  intensity: 0.342

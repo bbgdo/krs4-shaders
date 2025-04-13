@@ -1,4 +1,4 @@
-﻿Shader "Custom/RetroShader" {
+﻿Shader "Hidden/Custom/RetroShader" {
     Properties {
         _MainTex ("Texture", 2D) = "white" {}
         _Spread ("Spread", Range(0, 1)) = 0.5

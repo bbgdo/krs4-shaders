@@ -1,5 +1,5 @@
 ﻿// Difference of Gaussians
-Shader "Custom/DoGShader" {
+Shader "Hidden/Custom/DoGShader" {
     Properties {
         _MainTex ("Texture", 2D) = "white" {}
         _GaussianKernelSize("Kernel Size", Int) = 5

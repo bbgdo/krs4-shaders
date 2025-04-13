@@ -7,9 +7,12 @@ A collection of custom post-processing effects.
 ### Pixel sorting
 ![mads1](Results/pixelsorting_dithering_mads.png)
 ![mads2](Results/ascii_pixelsorting_mads.png)
+![girl](Results/pixelsort_gradientmap_girl.png)
 
-### Combined Kuwahara + Dithering
-![girl](Results/kuwahara_dither_girl.png)
+### Kuwahara
+![nier](Results/kuwahara_nier.png)
+
+kuwahara + dithering
 ![marik](Results/marik.png)
 > my cat Markiz ⬆️
 
@@ -29,6 +32,8 @@ A collection of custom post-processing effects.
 
 ### Canny Edge Detection
 ![nier](Results/ed_nier.png)
+
+### more in Results folder
 
 ## Links
 - inspired by [Acerola](https://www.youtube.com/@Acerola_t), [Yusef28](https://www.youtube.com/@Yusef28), [Jam2go](https://www.youtube.com/@Jam2go/videos)
