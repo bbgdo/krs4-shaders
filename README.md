@@ -13,7 +13,7 @@ A collection of custom post-processing effects.
 ![nier](Results/kuwahara_nier.png)
 
 kuwahara + dithering
-![marik](Results/marik.png)
+![marik](Results/kuwahara__Marik.png)
 > my cat Markiz ⬆️
 
 ### Bloom (based on Kawase blur)
