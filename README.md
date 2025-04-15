@@ -12,7 +12,6 @@ A collection of custom post-processing effects.
 ### Kuwahara
 ![nier](Results/kuwahara_nier.png)
 
-kuwahara + dithering
 ![marik](Results/kuwahara__Marik.png)
 > my cat Markiz ⬆️
 
