@@ -36,7 +36,7 @@
         ENDCG
 
         Pass {
-            Name "Point sampling"
+            Name "Gradient Map"
             
             CGPROGRAM
             #pragma vertex vert
@@ -47,7 +47,6 @@
                 float4 gradient = tex2D(_GradientTex, float2(LinearRgbToLuminance(tex), 0));  
                 
                 return lerp(tex, gradient, _Intensity);
-                // return float4(1, 0, 0, 1);
             }
             ENDCG
         }

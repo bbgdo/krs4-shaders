@@ -24,7 +24,6 @@
             };
         
             sampler2D _MainTex;
-            float4 _MainTex_TexelSize;
             float _Intensity;
             
             Interpolators vert (MeshData v) {

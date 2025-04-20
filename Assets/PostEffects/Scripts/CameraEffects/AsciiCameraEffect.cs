@@ -1,7 +1,7 @@
 ﻿using UnityEngine;
 
 namespace PostEffects.Scripts.CameraEffects {
-    
+
     [AddComponentMenu("Custom PostFX/ASCII")]
     public class AsciiCameraEffect : MonoBehaviour {
         private static readonly int AsciiTex = Shader.PropertyToID("_AsciiTex");
@@ -12,10 +12,14 @@ namespace PostEffects.Scripts.CameraEffects {
         private static readonly int Threshold = Shader.PropertyToID("_Threshold");
         private static readonly int AsciiEdgeTex = Shader.PropertyToID("_AsciiEdgeTex");
 
-        [Range(0, 10)] public int kernelSize = 5;
-        [Range(0f, 5f)] public float sigma1 = 1.0f;
-        [Range(0f, 5f)] public float sigma2 = 1.5f;
-        [Range(0f, 1f)] public float threshold;
+        [Range(0, 10)] 
+        public int kernelSize = 5;
+        [Range(0f, 5f)] 
+        public float sigma1 = 1.0f;
+        [Range(0f, 5f)] 
+        public float sigma2 = 1.5f;
+        [Range(0f, 1f)] 
+        public float threshold;
 
         private Material _asciiMaterial;
         private Material _dogMaterial;
