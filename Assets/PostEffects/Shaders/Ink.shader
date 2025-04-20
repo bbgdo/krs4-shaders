@@ -26,17 +26,9 @@
                 float4 vertex : SV_POSITION;
             };
         
-            sampler2D _MainTex;
-            float4 _MainTex_TexelSize;
-            sampler2D _LuminanceTex;
-            sampler2D _NoiseTex;
-            float4 _NoiseTex_TexelSize;
-            float _NoiseScale;
-            sampler2D _StippleTex;
-            float _HighThreshold;
-            float _LowThreshold;
-            float _ReduceNoise;
-            float _StipplingBias;
+            sampler2D _MainTex, _LuminanceTex, _NoiseTex, _StippleTex;
+            float4 _MainTex_TexelSize, _NoiseTex_TexelSize;
+            float _NoiseScale, _StipplingBias;
             int _EdgeThickness;
             
             Interpolators vert (MeshData v) {

@@ -81,9 +81,9 @@ Shader "Custom/EdgeDetectionShader" {
                     }
                 }
                 float gradient_magnitude = sqrt(gradient_x * gradient_x + gradient_y * gradient_y);
-                float direction = atan2(gradient_y, gradient_x);
+                float angle = atan2(gradient_y, gradient_x);
                 
-                return float4(direction, 0, 0, gradient_magnitude);
+                return float4(angle, 0, 0, gradient_magnitude);
             }
             ENDCG
         }
