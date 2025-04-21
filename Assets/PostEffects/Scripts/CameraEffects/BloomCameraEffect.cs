@@ -52,14 +52,14 @@ namespace PostEffects.Scripts.CameraEffects {
                 _material.SetTexture(BloomTex, upsample);
                 var temp = RenderTexture.GetTemporary(rtSampler[i].width, rtSampler[i].height);
                 Graphics.Blit(rtSampler[i], temp, _material, 3);
-                rtSampler[i].Release();
+                RenderTexture.ReleaseTemporary(rtSampler[i]);
                 rtSampler[i] = temp;
-                upsample.Release();
+                RenderTexture.ReleaseTemporary(upsample);
             }
 
             _material.SetTexture(BloomTex, rtSampler[0]);
             Graphics.Blit(source, destination, _material, 4);
-            foreach (var r in rtSampler) r.Release();
+            foreach (var rt in rtSampler) RenderTexture.ReleaseTemporary(rt);
         }
 
         void OnDisable() {

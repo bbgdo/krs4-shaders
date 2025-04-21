@@ -40,7 +40,7 @@ namespace PostEffects.Scripts.CameraEffects {
             }
 
             Graphics.Blit(rtDownsampler[--i], destination, _material, 1);
-            foreach (var curRt in rtDownsampler) curRt.Release();
+            foreach (var curRt in rtDownsampler) RenderTexture.ReleaseTemporary(curRt);
         }
 
         void OnDisable() {

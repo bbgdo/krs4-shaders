@@ -63,12 +63,12 @@ namespace PostEffects.Scripts.CameraEffects {
             _inkMaterial.SetTexture(StippleTex, rtStipple);
             Graphics.Blit(rtHysteresis, destination, _inkMaterial, 1);
 
-            rtLuminance.Release(); 
-            rtSobel.Release(); 
-            rtGradientMagnitude.Release(); 
-            rtDoubleThreshold.Release(); 
-            rtHysteresis.Release(); 
-            rtStipple.Release();
+            RenderTexture.ReleaseTemporary(rtLuminance);
+            RenderTexture.ReleaseTemporary(rtSobel);
+            RenderTexture.ReleaseTemporary(rtGradientMagnitude);
+            RenderTexture.ReleaseTemporary(rtDoubleThreshold);
+            RenderTexture.ReleaseTemporary(rtHysteresis);
+            RenderTexture.ReleaseTemporary(rtStipple);
         }
 
         void OnDisable() {

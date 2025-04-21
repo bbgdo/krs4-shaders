@@ -61,8 +61,8 @@ namespace PostEffects.Scripts.CameraEffects {
             _material.SetTexture(SortedTex, rtSorted);
             Graphics.Blit(source, destination, _material, 1);
 
-            rtMask.Release();
-            rtSorted.Release();
+            RenderTexture.ReleaseTemporary(rtMask);
+            RenderTexture.ReleaseTemporary(rtSorted);
         }
 
         void OnDisable() {

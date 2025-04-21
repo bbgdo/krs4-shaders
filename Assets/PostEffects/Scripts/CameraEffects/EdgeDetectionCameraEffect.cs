@@ -35,7 +35,10 @@ namespace PostEffects.Scripts.CameraEffects {
             Graphics.Blit(rtGradientMagnitude, rtDoubleThreshold, _material, 3);
             Graphics.Blit(rtDoubleThreshold, destination, _material, 4);
 
-            rtLuminance.Release(); rtSobel.Release(); rtGradientMagnitude.Release(); rtDoubleThreshold.Release();
+            RenderTexture.ReleaseTemporary(rtLuminance); 
+            RenderTexture.ReleaseTemporary(rtSobel); 
+            RenderTexture.ReleaseTemporary(rtGradientMagnitude); 
+            RenderTexture.ReleaseTemporary(rtDoubleThreshold);
         }
 
         void OnDisable() {

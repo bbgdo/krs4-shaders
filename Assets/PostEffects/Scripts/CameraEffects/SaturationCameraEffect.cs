@@ -5,7 +5,8 @@ namespace PostEffects.Scripts.CameraEffects {
     public class SaturationCameraEffect : MonoBehaviour {
         private static readonly int Intensity = Shader.PropertyToID("_Intensity");
 
-        [Range(0, 2)] public float intensity = 1.0f;
+        [Range(0, 2)] 
+        public float intensity = 1.0f;
 
         private Material _material;
 

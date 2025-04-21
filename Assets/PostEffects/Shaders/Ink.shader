@@ -48,6 +48,7 @@
 
             float4 frag (Interpolators interp) : SV_Target {
                 // _StipplingBias is temporary, will be moved to a standalone shader.
+                // nothing is more constant than a temporary thing (c) me after a month during some revision :)
                 float luminance = saturate(tex2D(_MainTex, interp.uv).a + _StipplingBias);
                 float2 screenUV = interp.vertex.xy / _ScreenParams.xy;
                 float2 noiseUV = screenUV * _NoiseScale;

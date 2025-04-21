@@ -74,15 +74,15 @@ namespace PostEffects.Scripts.CameraEffects {
 
             Graphics.Blit(rtEdgesDownsampled, destination, _asciiMaterial, 2);
 
-            rtD1.Release(); 
-            rtD2.Release(); 
-            rtDFill3.Release(); 
-            rtDEdge3.Release();
-            rtHorizontalBlur.Release(); 
-            rtVerticalBlur.Release(); 
-            rtDoG.Release(); 
-            rtEdges.Release(); 
-            rtEdgesDownsampled.Release();
+            RenderTexture.ReleaseTemporary(rtD1); 
+            RenderTexture.ReleaseTemporary(rtD2); 
+            RenderTexture.ReleaseTemporary(rtDFill3); 
+            RenderTexture.ReleaseTemporary(rtDEdge3);
+            RenderTexture.ReleaseTemporary(rtHorizontalBlur); 
+            RenderTexture.ReleaseTemporary(rtVerticalBlur); 
+            RenderTexture.ReleaseTemporary(rtDoG); 
+            RenderTexture.ReleaseTemporary(rtEdges); 
+            RenderTexture.ReleaseTemporary(rtEdgesDownsampled);
         }
 
         void OnDisable() {

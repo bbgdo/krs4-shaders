@@ -41,8 +41,8 @@ namespace PostEffects.Scripts.CameraEffects {
             Graphics.Blit(rtHorizontalBlur, rtVerticalBlur, _material, 1);
             Graphics.Blit(rtVerticalBlur, destination, _material, 2);
 
-            rtHorizontalBlur.Release();
-            rtVerticalBlur.Release();
+            RenderTexture.ReleaseTemporary(rtHorizontalBlur);
+            RenderTexture.ReleaseTemporary(rtVerticalBlur);
         }
 
         void OnDisable() {
