@@ -1,8 +1,6 @@
 ﻿# Artistic Post-Processing Shaders in Unity
 
-(**in progress**)
-
-A collection of custom post-processing effects.
+A collection of custom post-processing effects. I just wanted to recreate some cool visual effects
 
 ### Pixel sorting
 ![mads1](Results/pixelsorting_dithering_mads.png)
@@ -35,7 +33,7 @@ A collection of custom post-processing effects.
 ### more in Results folder
 
 ## Links
-- inspired by [Acerola](https://www.youtube.com/@Acerola_t), [Yusef28](https://www.youtube.com/@Yusef28), [Jam2go](https://www.youtube.com/@Jam2go/videos)
+- props to [Acerola](https://www.youtube.com/@Acerola_t), [Yusef28](https://www.youtube.com/@Yusef28), [Jam2go](https://www.youtube.com/@Jam2go/videos) — their videos gave me a lot of ideas!
 - [Canny edge detector](https://en.wikipedia.org/wiki/Canny_edge_detector)
 - [Sobel operator](https://en.wikipedia.org/wiki/Sobel_operator)
 - [Kernel](https://en.wikipedia.org/wiki/Kernel_(image_processing))
